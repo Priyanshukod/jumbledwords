@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#2299de"
+    tools:context="com.stupendous.jumbledwords.MainActivity">
+
+
+    <RelativeLayout
+        android:layout_alignParentTop="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:padding="10dp"
+        android:id="@+id/scoreLayout"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:padding="10dp"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/tv_currentScore"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#fff"
+                android:textStyle="bold"
+                android:textSize="20sp"
+                android:layout_below="@+id/iv_startGame"
+                android:layout_centerInParent="true"
+                android:layout_alignBottom="@+id/iv_startGame"
+                android:gravity="center"
+                android:text="0" />
+
+            <TextView
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#fff"
+
+                android:textSize="16sp"
+                android:layout_below="@+id/iv_startGame"
+                android:layout_centerInParent="true"
+                android:layout_alignBottom="@+id/iv_startGame"
+                android:gravity="center"
+                android:text="Your Score" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:padding="10dp"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/tv_totalScore"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#fff"
+                android:textStyle="bold"
+                android:textSize="20sp"
+                android:layout_below="@+id/iv_startGame"
+                android:layout_centerInParent="true"
+                android:layout_alignBottom="@+id/iv_startGame"
+                android:gravity="center"
+                android:text="20" />
+
+            <TextView
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#fff"
+
+                android:textSize="16sp"
+                android:layout_below="@+id/iv_startGame"
+                android:layout_centerInParent="true"
+                android:layout_alignBottom="@+id/iv_startGame"
+                android:gravity="center"
+                android:text="Best Score" />
+        </LinearLayout>
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/answersLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:padding="10dp"
+        android:layout_below="@+id/scoreLayout"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal">
+        <TextView
+            android:id="@+id/txtVw1"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:textColor="#fff"
+            android:textStyle="bold"
+            android:textSize="20sp"
+            android:background="#ff0000"
+            android:layout_marginLeft="15dp"
+            android:gravity="center"
+            android:text="0" />
+
+        <TextView
+            android:id="@+id/txtVw2"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:textColor="#fff"
+            android:textStyle="bold"
+            android:textSize="20sp"
+            android:background="#ff0000"
+            android:layout_marginLeft="15dp"
+            android:gravity="center"
+            android:text="0" />
+
+        <TextView
+            android:id="@+id/txtVw3"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:textColor="#fff"
+            android:textStyle="bold"
+            android:textSize="20sp"
+            android:background="#ff0000"
+            android:layout_marginLeft="15dp"
+            android:gravity="center"
+            android:text="0" />
+
+        <TextView
+            android:id="@+id/txtVw4"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:textColor="#fff"
+            android:textStyle="bold"
+            android:textSize="20sp"
+            android:background="#ff0000"
+            android:layout_marginLeft="15dp"
+            android:gravity="center"
+            android:text="0" />
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:padding="10dp"
+        android:layout_centerInParent="true"
+        android:layout_below="@+id/answersLayout"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:padding="10dp"
+
+        android:layout_below="@+id/answersLayout"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal">
+        <TextView
+            android:id="@+id/tv_first"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:textColor="#fff"
+            android:textStyle="bold"
+            android:textSize="20sp"
+            android:background="#ff0000"
+            android:layout_marginLeft="15dp"
+            android:gravity="center"
+            android:text="0" />
+
+        <TextView
+            android:id="@+id/tv_second"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:textColor="#fff"
+            android:textStyle="bold"
+            android:textSize="20sp"
+            android:background="#ff0000"
+            android:layout_marginLeft="15dp"
+            android:gravity="center"
+            android:text="0" />
+</LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:padding="10dp"
+
+        android:layout_below="@+id/answersLayout"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal">
+        <TextView
+            android:id="@+id/tv_third"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:textColor="#fff"
+            android:textStyle="bold"
+            android:textSize="20sp"
+            android:background="#ff0000"
+            android:layout_marginLeft="15dp"
+            android:gravity="center"
+            android:text="0" />
+
+        <TextView
+            android:id="@+id/tv_fourth"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:textColor="#fff"
+            android:textStyle="bold"
+            android:textSize="20sp"
+            android:background="#ff0000"
+            android:layout_marginLeft="15dp"
+            android:gravity="center"
+            android:text="0" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/iv_quitGame"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="10dp"
+        android:src="@android:drawable/ic_dialog_dialer"/>
+
+
+</RelativeLayout>
