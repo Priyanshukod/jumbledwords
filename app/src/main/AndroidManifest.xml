@@ -4,7 +4,7 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
@@ -16,6 +16,12 @@
             </intent-filter>
         </activity>
         <activity android:name=".GameActivity"></activity>
+
+        <provider
+            android:name="com.stupendous.jumbledwords.provider.JumbleContentProvider"
+            android:authorities="com.stupendous.jumbledwords.provider"
+            android:exported="false" />
+
     </application>
 
 </manifest>
