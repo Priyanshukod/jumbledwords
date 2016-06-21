@@ -1,10 +1,9 @@
 package com.stupendous.jumbledwords;
 
-import android.content.SharedPreferences;
 import android.database.Cursor;
+import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
@@ -12,15 +11,11 @@ import android.widget.Toast;
 
 import com.stupendous.jumbledwords.provider.correctwords.CorrectwordsColumns;
 import com.stupendous.jumbledwords.provider.correctwords.CorrectwordsContentValues;
-import com.stupendous.jumbledwords.provider.correctwords.CorrectwordsCursor;
-import com.stupendous.jumbledwords.provider.correctwords.CorrectwordsSelection;
-import com.stupendous.jumbledwords.provider.jumblewords.JumblewordsColumns;
 import com.stupendous.jumbledwords.provider.jumblewords.JumblewordsContentValues;
 import com.stupendous.jumbledwords.provider.jumblewords.JumblewordsCursor;
 import com.stupendous.jumbledwords.provider.jumblewords.JumblewordsSelection;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Random;
 
 public class GameActivity extends AppCompatActivity implements View.OnClickListener{
@@ -28,10 +23,10 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     TextView tv_finalAnsArr[];
     TextView tv_firstLetter, tv_secondLetter, tv_thirdletter, tv_fourthLetter, tv_bestScore;
     private int index = 0;
-    HashMap<String,ArrayList<WordsModel>> wordsArr = new HashMap<>();
     int id = 0;
     private int score=0;
     private TextView tv_currentScore;
+    String correctWordsStr = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,7 +62,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
     private void getJumledWords() {
         Random r = new Random();
-        id = r.nextInt(4) + 1;
+        id = r.nextInt(8) + 1;
 
         JumblewordsCursor cursor = new JumblewordsSelection().id(id).query(this);
 
@@ -169,8 +164,13 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         }
        // CorrectwordsSelection selection = new CorrectwordsSelection();
         //CorrectwordsCursor cursr = selection.jumbleWordId(id).
-        Cursor cursor = getContentResolver().query(CorrectwordsColumns.CONTENT_URI, null, CorrectwordsColumns.JUMBLE_WORD_ID +"=? AND "+CorrectwordsColumns.CORRECT_WORD+"=?", new String[]{id+"", sb.toString()}, null);
-        if(cursor != null && cursor.getCount()>0)
+       // Cursor cursor = getContentResolver().query(CorrectwordsColumns.CONTENT_URI, null, CorrectwordsColumns.JUMBLE_WORD_ID +"=? AND "+CorrectwordsColumns.CORRECT_WORD+"=?", new String[]{id+"", sb.toString()}, null);
+        Cursor cursor = getContentResolver().query(CorrectwordsColumns.CONTENT_URI, null, CorrectwordsColumns.JUMBLE_WORD_ID +"=?", new String[]{id+""}, null);
+        if(cursor != null && cursor.getCount()>0) {
+            cursor.moveToFirst();
+             correctWordsStr = cursor.getString(cursor.getColumnIndex(CorrectwordsColumns.CORRECT_WORD));
+        }
+        if(correctWordsStr.contains(sb.toString().toUpperCase()) || correctWordsStr.contains(sb.toString().toLowerCase()))
         {
             score = score + 1;
             for (int i = 0; i < tv_finalAnsArr.length; i++) {
