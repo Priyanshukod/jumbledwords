@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Jumbled Words</string>
+    <string name="go_to_app_settings">Go to App Settings</string>
 </resources>
