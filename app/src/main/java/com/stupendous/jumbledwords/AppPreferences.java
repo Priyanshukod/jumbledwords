@@ -9,6 +9,7 @@ import android.content.SharedPreferences;
 public class AppPreferences {
 
     private static final String APP_SHARED_PREFERENCE = "app_preferences";
+    public static final String KEY_DB_COPIED = "key_db_copied";
 
 
     public static void setSharedPreference(Context ctx, String Key, String Value) {

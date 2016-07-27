@@ -1,32 +1,32 @@
 package com.stupendous.jumbledwords;
 
+import android.content.Context;
 import android.content.ContextWrapper;
 import android.content.Intent;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
+import com.stupendous.jumbledwords.provider.jumblewords.JumblewordsCursor;
+import com.stupendous.jumbledwords.provider.jumblewords.JumblewordsSelection;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends BaseActivity {
+    private static final String TAG = MainActivity.class.getName();
     ContextWrapper cw ;
-    String DB_PATH ;
-    String DB_NAME = "words.db";
+    //String DB_PATH ;
+   // String DB_NAME = "words.db";
+    TextView tv_totalScore;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         cw =new ContextWrapper(getApplicationContext());
         // DB_PATH =cw.getFilesDir().getAbsolutePath()+ "/databases/"; //edited to databases
-         DB_PATH ="/data/data/com.stupendous.jumbledwords/databases/"; //edited to databases
+        // DB_PATH ="/data/data/com.stupendous.jumbledwords/databases/"; //edited to databases
 
-        TextView tv_totalScore = (TextView) findViewById(R.id.tv_totalScore);
+        tv_totalScore = (TextView) findViewById(R.id.tv_totalScore);
         tv_totalScore.setText(PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).getInt("score", 0) +"\n Best Score");
         findViewById(R.id.iv_startGame).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -34,40 +34,29 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(new Intent(MainActivity.this, GameActivity.class));
             }
         });
-       // copyDataBase();
-    }
 
-    private void copyDataBase()
-    {
-        Log.i("Database",
-                "New database is being copied to device!");
-        byte[] buffer = new byte[1024];
-        OutputStream myOutput = null;
-        int length;
-        // Open your local db as the input stream
-        InputStream myInput = null;
-        try
-        {
-            myInput =getApplicationContext().getAssets().open(DB_NAME);
-            // transfer bytes from the inputfile to the
-            // outputfile
-            myOutput =new FileOutputStream(DB_PATH+ DB_NAME);
-            while((length = myInput.read(buffer)) > 0)
-            {
-                myOutput.write(buffer, 0, length);
+        findViewById(R.id.iv_quitGame).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
             }
-            myOutput.close();
-            myOutput.flush();
-            myInput.close();
-            Log.i("Database",
-                    "New database has been copied to device!");
+        });
 
+        if(!AppPreferences.getBooleanSharedPreference(this,AppPreferences.KEY_DB_COPIED,false))
+            Utility.copyDataBase(this,this.openOrCreateDatabase("words.db", Context.MODE_PRIVATE,null).getPath());
 
+        JumblewordsCursor cursor = new JumblewordsSelection().query(this);
+
+        if(cursor!=null){
+            Log.e(TAG,"Count:"+cursor.getCount());
         }
-        catch(IOException e)
-        {
-            e.printStackTrace();
-        }
+
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        tv_totalScore.setText(PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).getInt("score", 0) +"\n Best Score");
+
+    }
 }

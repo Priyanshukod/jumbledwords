@@ -94,6 +94,8 @@ public class JumbleDb extends SQLiteOpenHelper {
         db.execSQL(SQL_CREATE_TABLE_CORRECTWORDS);
         db.execSQL(SQL_CREATE_TABLE_JUMBLEWORDS);
         mOpenHelperCallbacks.onPostCreate(mContext, db);
+
+        Log.e(TAG,"Database created############");
     }
 
     @Override

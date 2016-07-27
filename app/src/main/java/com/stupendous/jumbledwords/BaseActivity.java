@@ -7,9 +7,15 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Toast;
+
+import com.google.android.gms.ads.AdListener;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.InterstitialAd;
 
 /**
  * Created by vinodtakhar on 28/4/16.
@@ -26,6 +32,8 @@ public class BaseActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         mInterstitialAd = new InterstitialAd(this);
         mInterstitialAd.setAdUnitId(getResources().getString(R.string.interstial_id));
@@ -49,15 +57,15 @@ public class BaseActivity extends AppCompatActivity {
     protected void initBanner() {
         mAdView = (AdView) findViewById(R.id.adView);
         AdRequest adRequest = new AdRequest.Builder()
-                .addTestDevice("DC7C9FD46CD1CA86196555FA421470F7")
-                .addTestDevice("75BCE6A3D40329AA644B7DA2D7241198").build();
+                .addTestDevice("69EB1DA1ED362DB39724BB7BFA35F3AB")
+                .addTestDevice("69EB1DA1ED362DB39724BB7BFA35F3AB").build();
         mAdView.loadAd(adRequest);
     }
 
     private void requestNewInterstitial() {
         AdRequest adRequest = new AdRequest.Builder()
-                .addTestDevice("DC7C9FD46CD1CA86196555FA421470F7")
-                .addTestDevice("75BCE6A3D40329AA644B7DA2D7241198")
+                .addTestDevice("69EB1DA1ED362DB39724BB7BFA35F3AB")
+                .addTestDevice("69EB1DA1ED362DB39724BB7BFA35F3AB")
                 .build();
 
         mInterstitialAd.loadAd(adRequest);

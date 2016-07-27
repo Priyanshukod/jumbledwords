@@ -1,13 +1,19 @@
 package com.stupendous.jumbledwords;
 
+import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.os.Handler;
 import android.preference.PreferenceManager;
-import android.support.v7.app.AppCompatActivity;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.stupendous.jumbledwords.provider.correctwords.CorrectwordsColumns;
 import com.stupendous.jumbledwords.provider.correctwords.CorrectwordsContentValues;
@@ -18,15 +24,22 @@ import com.stupendous.jumbledwords.provider.jumblewords.JumblewordsSelection;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class GameActivity extends AppCompatActivity implements View.OnClickListener{
+public class GameActivity extends BaseActivity implements View.OnClickListener{
     private static final String TAG = GameActivity.class.getName();
     TextView tv_finalAnsArr[];
-    TextView tv_firstLetter, tv_secondLetter, tv_thirdletter, tv_fourthLetter, tv_bestScore;
+    TextView tv_firstLetter, tv_secondLetter, tv_thirdletter, tv_fourthLetter, tv_bestScore, tv_timer;
     private int index = 0;
     int id = 0;
     private int score=0;
     private TextView tv_currentScore;
     String correctWordsStr = "";
+    int totalWordsCount;
+    ImageView iv_isCorrect;
+    volatile long totalTime = 30000;
+    Handler handler;
+    Runnable runnableCode;
+    ArrayList<String> randomGeneratedIdList = new ArrayList<>();
+    private LinearLayout answerslayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +48,13 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
        // insertTempJumbleWords();
        // insertTempCorrectWords();
 
+        initBanner();
+
+       /* Animation anim = new AlphaAnimation(0.0f, 1.0f);
+        anim.setDuration(50); //You can manage the blinking time with this parameter
+        anim.setStartOffset(20);
+        anim.setRepeatMode(Animation.REVERSE);
+        anim.setRepeatCount(Animation.INFINITE);*/
 
         tv_finalAnsArr = new TextView[]{(TextView)findViewById(R.id.txtVw1),
                 (TextView)findViewById(R.id.txtVw2),
@@ -46,23 +66,84 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         tv_fourthLetter = (TextView) findViewById(R.id.tv_fourth);
         tv_currentScore = (TextView)findViewById(R.id.tv_currentScore);
         tv_bestScore = (TextView)findViewById(R.id.tv_totalScore);
+        tv_timer = (TextView)findViewById(R.id.tv_timer);
+        iv_isCorrect = (ImageView)findViewById(R.id.iv_isCorrect);
+        answerslayout = (LinearLayout)findViewById(R.id.answersLayout);
+       // tv_timer.startAnimation(anim);
         tv_bestScore.setText(PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).getInt("score", 0) +"");
         findViewById(R.id.iv_quitGame).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                showInterstitial();
                 GameActivity.this.finish();
+            }
+        });
+        findViewById(R.id.restartLayout).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+              //  showInterstitial();
+               startActivity(new Intent(GameActivity.this, GameActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
             }
         });
         tv_firstLetter.setOnClickListener(this);
         tv_secondLetter.setOnClickListener(this);
         tv_thirdletter.setOnClickListener(this);
         tv_fourthLetter.setOnClickListener(this);
+        totalWordsCount = new JumblewordsSelection().query(this).getCount();
+        // Create the Handler object (on the main thread by default)
+         handler = new Handler();
+// Define the code block to be executed
+        runnableCode = new Runnable() {
+            @Override
+            public void run() {
+                // Do something here on the main thread
+                Log.d("Handlers", "Called on main thread");
+                // Repeat this the same runnable code block again another 1 seconds
+                if( totalTime > 0 ) {
+                    tv_timer.setText("Seconds remaining: " + totalTime / 1000);
+                    totalTime = totalTime - 1000;
+                    handler.postDelayed(runnableCode, 1000);
+                } else
+                {
+                    iv_isCorrect.setVisibility(View.GONE);
+                    tv_firstLetter.setEnabled(false);
+                    tv_secondLetter.setEnabled(false);
+                    tv_thirdletter.setEnabled(false);
+                    tv_fourthLetter.setEnabled(false);
+                    if(score > (PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).getInt("score", 0)))
+                        PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).edit().putInt("score", score).commit();
+                    tv_timer.setText("Times Up!");
+                    handler.removeCallbacks(runnableCode);
+                }
+            }
+        };
+// Start the initial runnable task by posting through the handler
+        handler.post(runnableCode);
+        /*new CountDownTimer(totalTime, 1000) {
+
+            public void onTick(long millisUntilFinished) {
+                tv_timer.setText("Seconds remaining: " + millisUntilFinished / 1000);
+                //here you can have your logic to set text to edittext
+            }
+
+            public void onFinish() {
+                tv_timer.setText("Times Up!");
+                iv_isCorrect.setVisibility(View.GONE);
+                tv_firstLetter.setEnabled(false);
+                tv_secondLetter.setEnabled(false);
+                tv_thirdletter.setEnabled(false);
+                tv_fourthLetter.setEnabled(false);
+                if(score > (PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).getInt("score", 0)))
+                PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).edit().putInt("score", score).commit();
+            }
+
+        }.start();*/
         getJumledWords();
     }
 
     private void getJumledWords() {
-        Random r = new Random();
-        id = r.nextInt(8) + 1;
+
+        getRandomId();
 
         JumblewordsCursor cursor = new JumblewordsSelection().id(id).query(this);
 
@@ -82,6 +163,22 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
             tv_secondLetter.setText(ch[1]+"");
             tv_thirdletter.setText(ch[2]+"");
             tv_fourthLetter.setText(ch[3]+"");
+        }
+    }
+
+    private void getRandomId() {
+        Random r = new Random();
+        id = r.nextInt(totalWordsCount) + 1;
+        if(randomGeneratedIdList.contains(""+id))
+        {
+            if(randomGeneratedIdList.size() == totalWordsCount)
+                return;
+            getRandomId();
+        }
+        else
+        {
+            randomGeneratedIdList.add(id+"");
+            return;
         }
     }
 
@@ -172,8 +269,11 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         }
         if(correctWordsStr.contains(sb.toString().toUpperCase()) || correctWordsStr.contains(sb.toString().toLowerCase()))
         {
+            totalTime = totalTime + 1000;
+            iv_isCorrect.setVisibility(View.VISIBLE);
+            iv_isCorrect.setImageDrawable(ContextCompat.getDrawable(GameActivity.this, R.drawable.correct));
             score = score + 1;
-            for (int i = 0; i < tv_finalAnsArr.length; i++) {
+           /* for (int i = 0; i < tv_finalAnsArr.length; i++) {
                 tv_finalAnsArr[i].setText("");
             }
             getJumledWords();
@@ -181,16 +281,29 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
             tv_firstLetter.setEnabled(true);
             tv_secondLetter.setEnabled(true);
             tv_thirdletter.setEnabled(true);
-            tv_fourthLetter.setEnabled(true);
+            tv_fourthLetter.setEnabled(true);*/
         }
         else
         {
-            PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).edit().putInt("score", score).commit();
-
-
-            Toast.makeText(getApplicationContext(), "You lost", Toast.LENGTH_LONG).show();
-            GameActivity.this.finish();
+            shakeView(GameActivity.this, answerslayout);
+            iv_isCorrect.setVisibility(View.VISIBLE);
+            iv_isCorrect.setImageDrawable(ContextCompat.getDrawable(GameActivity.this, R.drawable.incorrect));
         }
+        for (int i = 0; i < tv_finalAnsArr.length; i++) {
+            tv_finalAnsArr[i].setText("");
+        }
+        getJumledWords();
+        tv_currentScore.setText(score +"");
+        tv_firstLetter.setEnabled(true);
+        tv_secondLetter.setEnabled(true);
+        tv_thirdletter.setEnabled(true);
+        tv_fourthLetter.setEnabled(true);
 
+    }
+
+    public static void shakeView(Context context, View viewToShake) {
+        Animation anim = AnimationUtils.loadAnimation(context.getApplicationContext(), R.anim.shake);
+        viewToShake.setAnimation(anim);
+        viewToShake.startAnimation(anim);
     }
 }

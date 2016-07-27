@@ -1,4 +1,6 @@
 <resources>
     <string name="app_name">Jumbled Words</string>
     <string name="go_to_app_settings">Go to App Settings</string>
+    <string name="interstial_id">ca-app-pub-1914893119799187/3161231159</string>
+    <string name="ad_banner">ca-app-pub-1914893119799187/1684497951</string>
 </resources>

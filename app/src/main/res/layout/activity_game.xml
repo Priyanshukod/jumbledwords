@@ -3,14 +3,25 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#ddff2222"
-   >
+    xmlns:ads="http://schemas.android.com/apk/res-auto"
+    android:background="#ddff2222">
 
-
-    <RelativeLayout
+    <com.google.android.gms.ads.AdView
+        android:id="@+id/adView"
         android:layout_alignParentTop="true"
         android:layout_width="match_parent"
+        android:layout_centerHorizontal="true"
         android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        ads:adSize="BANNER"
+        ads:adUnitId="@string/ad_banner">
+
+    </com.google.android.gms.ads.AdView>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/adView"
         android:gravity="center_vertical"
         android:padding="10dp"
         android:id="@+id/scoreLayout"
@@ -34,7 +45,7 @@
                 android:layout_centerInParent="true"
                 android:layout_alignBottom="@+id/iv_startGame"
                 android:gravity="center"
-                tools:text="0" />
+                android:text="0" />
 
             <TextView
 
@@ -68,7 +79,7 @@
                 android:layout_centerInParent="true"
                 android:layout_alignBottom="@+id/iv_startGame"
                 android:gravity="center"
-                android:text="20" />
+                android:text="0" />
 
             <TextView
 
@@ -87,33 +98,34 @@
 
     <LinearLayout
         android:id="@+id/answersLayout"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
         android:padding="10dp"
+        android:layout_centerHorizontal="true"
         android:layout_below="@+id/scoreLayout"
         android:gravity="center_horizontal"
         android:orientation="horizontal">
         <TextView
             android:id="@+id/txtVw1"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
+            android:layout_width="@dimen/tv_dimensions"
+            android:layout_height="@dimen/tv_dimensions"
             android:textColor="#fff"
             android:textStyle="bold"
             android:textSize="20sp"
+            android:elevation="@dimen/elevation"
             android:background="@color/blue"
-            android:layout_marginLeft="15dp"
             android:gravity="center"
             
             tools:text="0" />
 
         <TextView
             android:id="@+id/txtVw2"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
+            android:layout_width="@dimen/tv_dimensions"
+            android:layout_height="@dimen/tv_dimensions"
             android:textColor="#fff"
             android:textStyle="bold"
             android:textSize="20sp"
+            android:elevation="@dimen/elevation"
             android:background="@color/blue"
             android:layout_marginLeft="15dp"
             android:gravity="center"
@@ -121,11 +133,12 @@
 
         <TextView
             android:id="@+id/txtVw3"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
+            android:layout_width="@dimen/tv_dimensions"
+            android:layout_height="@dimen/tv_dimensions"
             android:textColor="#fff"
             android:textStyle="bold"
             android:textSize="20sp"
+            android:elevation="@dimen/elevation"
             android:background="@color/blue"
             android:layout_marginLeft="15dp"
             android:gravity="center"
@@ -133,11 +146,12 @@
 
         <TextView
             android:id="@+id/txtVw4"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
+            android:layout_width="@dimen/tv_dimensions"
+            android:layout_height="@dimen/tv_dimensions"
             android:textColor="#fff"
             android:textStyle="bold"
             android:textSize="20sp"
+            android:elevation="@dimen/elevation"
             android:background="@color/blue"
             android:layout_marginLeft="15dp"
             android:gravity="center"
@@ -166,24 +180,26 @@
         android:orientation="horizontal">
         <TextView
             android:id="@+id/tv_first"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
+            android:layout_width="@dimen/tv_dimensions"
+            android:layout_height="@dimen/tv_dimensions"
             android:textColor="#fff"
             android:textStyle="bold"
             android:textSize="20sp"
-            android:background="@color/blue"
+            android:elevation="@dimen/elevation"
+            android:background="@drawable/tv_background"
             android:layout_marginLeft="15dp"
             android:gravity="center"
             tools:text="0" />
 
         <TextView
             android:id="@+id/tv_second"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
+            android:layout_width="@dimen/tv_dimensions"
+            android:layout_height="@dimen/tv_dimensions"
             android:textColor="#fff"
             android:textStyle="bold"
             android:textSize="20sp"
-            android:background="@color/blue"
+            android:elevation="@dimen/elevation"
+            android:background="@drawable/tv_background"
             android:layout_marginLeft="15dp"
             android:gravity="center"
             tools:text="0" />
@@ -199,38 +215,95 @@
         android:orientation="horizontal">
         <TextView
             android:id="@+id/tv_third"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
+            android:layout_width="@dimen/tv_dimensions"
+            android:layout_height="@dimen/tv_dimensions"
             android:textColor="#fff"
             android:textStyle="bold"
             android:textSize="20sp"
-            android:background="@color/blue"
+            android:elevation="@dimen/elevation"
+            android:background="@drawable/tv_background"
             android:layout_marginLeft="15dp"
             android:gravity="center"
             tools:text="0" />
 
         <TextView
             android:id="@+id/tv_fourth"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
+            android:layout_width="@dimen/tv_dimensions"
+            android:layout_height="@dimen/tv_dimensions"
             android:textColor="#fff"
             android:textStyle="bold"
             android:textSize="20sp"
-            android:background="@color/blue"
+            android:elevation="@dimen/elevation"
+            android:background="@drawable/tv_background"
             android:layout_marginLeft="15dp"
             android:gravity="center"
             tools:text="0" />
         </LinearLayout>
+        <TextView
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textColor="#fff"
+            android:textSize="20sp"
+            android:id="@+id/tv_timer"/>
+        <ImageView
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:id="@+id/iv_isCorrect"
+            android:visibility="gone"
+            android:tint="#008000"
+            android:src="@drawable/correct"
+            android:layout_gravity="center_horizontal"/>
     </LinearLayout>
 
-    <ImageView
-        android:id="@+id/iv_quitGame"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
+    <RelativeLayout
         android:layout_alignParentBottom="true"
-        android:layout_margin="10dp"
-        android:src="@drawable/exit"/>
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:padding="10dp"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/iv_quitGame"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:tint="#ffffff"
+            android:src="@drawable/home"/>
+
+        <LinearLayout
+            android:id="@+id/restartLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:padding="10dp"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+            <ImageView
+                android:id="@+id/iv_startGame"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:tint="#008000"
+                android:clickable="false"
+                android:src="@drawable/start"/>
+
+            <TextView
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#fff"
+                android:clickable="false"
+                android:textSize="18sp"
+                android:layout_below="@+id/iv_startGame"
+                android:layout_centerInParent="true"
+                android:layout_alignBottom="@+id/iv_startGame"
+                android:gravity="center"
+                android:text="Restart" />
+        </LinearLayout>
+    </RelativeLayout>
 
 
 </RelativeLayout>
