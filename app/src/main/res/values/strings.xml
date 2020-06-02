@@ -3,4 +3,7 @@
     <string name="go_to_app_settings">Go to App Settings</string>
     <string name="interstial_id">ca-app-pub-1914893119799187/3161231159</string>
     <string name="ad_banner">ca-app-pub-1914893119799187/1684497951</string>
+<!--
+    <string name="ad_banner">ca-app-pub-3940256099942544/6300978111</string>
+-->
 </resources>

@@ -1,15 +1,24 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 23
-    buildToolsVersion "23.0.2"
+
+    /*signingConfigs {
+        release {
+            storeFile file('/Users/onion15/Documents/MyProjects/jumbledwords/jumbled_keystore.jks')
+            storePassword 'anupriya'
+            keyAlias = 'key0'
+            keyPassword 'anupriya'
+        }
+    }*/
+    compileSdkVersion 29
+    buildToolsVersion "29.0.0"
 
     defaultConfig {
         applicationId "com.stupendous.jumbledwords"
-        minSdkVersion 14
-        targetSdkVersion 23
-        versionCode 2
-        versionName "1.1"
+        minSdkVersion 16
+        targetSdkVersion 29
+        versionCode 3
+        versionName "1.2"
     }
     buildTypes {
         release {
@@ -20,6 +29,6 @@ android {
 }
 
 dependencies {
-    compile 'com.android.support:appcompat-v7:23.4.0'
-    compile 'com.google.android.gms:play-services-ads:8.4.0'
+    implementation 'androidx.appcompat:appcompat:1.0.0'
+    implementation 'com.google.android.gms:play-services-ads:19.1.0'
 }

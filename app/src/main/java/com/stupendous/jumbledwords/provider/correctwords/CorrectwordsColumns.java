@@ -4,8 +4,6 @@ import android.net.Uri;
 import android.provider.BaseColumns;
 
 import com.stupendous.jumbledwords.provider.JumbleContentProvider;
-import com.stupendous.jumbledwords.provider.correctwords.CorrectwordsColumns;
-import com.stupendous.jumbledwords.provider.jumblewords.JumblewordsColumns;
 
 /**
  * Columns for the {@code correctwords} table.

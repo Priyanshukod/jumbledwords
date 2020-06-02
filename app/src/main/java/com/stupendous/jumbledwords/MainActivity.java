@@ -24,7 +24,7 @@ public class MainActivity extends BaseActivity {
         setContentView(R.layout.activity_main);
         cw =new ContextWrapper(getApplicationContext());
         // DB_PATH =cw.getFilesDir().getAbsolutePath()+ "/databases/"; //edited to databases
-        // DB_PATH ="/data/data/com.stupendous.jumbledwords/databases/"; //edited to databases
+        // DB_PATH ="/data/data/com.invincible.jumbledwords/databases/"; //edited to databases
 
         tv_totalScore = (TextView) findViewById(R.id.tv_totalScore);
         tv_totalScore.setText(PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).getInt("score", 0) +"\n Best Score");

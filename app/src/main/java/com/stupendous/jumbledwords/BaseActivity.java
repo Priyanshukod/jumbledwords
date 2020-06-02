@@ -5,9 +5,9 @@ import android.content.DialogInterface;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+import androidx.appcompat.app.AppCompatActivity;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Toast;
@@ -16,6 +16,9 @@ import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.InterstitialAd;
+import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.initialization.InitializationStatus;
+import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
 
 /**
  * Created by vinodtakhar on 28/4/16.
@@ -35,6 +38,11 @@ public class BaseActivity extends AppCompatActivity {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
+        MobileAds.initialize(this, new OnInitializationCompleteListener() {
+            @Override
+            public void onInitializationComplete(InitializationStatus initializationStatus) {
+            }
+        });
         mInterstitialAd = new InterstitialAd(this);
         mInterstitialAd.setAdUnitId(getResources().getString(R.string.interstial_id));
 
@@ -57,15 +65,16 @@ public class BaseActivity extends AppCompatActivity {
     protected void initBanner() {
         mAdView = (AdView) findViewById(R.id.adView);
         AdRequest adRequest = new AdRequest.Builder()
-                .addTestDevice("69EB1DA1ED362DB39724BB7BFA35F3AB")
-                .addTestDevice("69EB1DA1ED362DB39724BB7BFA35F3AB").build();
+               // .addTestDevice("69EB1DA1ED362DB39724BB7BFA35F3AB")
+               // .addTestDevice("69EB1DA1ED362DB39724BB7BFA35F3AB")
+                .build();
         mAdView.loadAd(adRequest);
     }
 
     private void requestNewInterstitial() {
         AdRequest adRequest = new AdRequest.Builder()
-                .addTestDevice("69EB1DA1ED362DB39724BB7BFA35F3AB")
-                .addTestDevice("69EB1DA1ED362DB39724BB7BFA35F3AB")
+               // .addTestDevice("69EB1DA1ED362DB39724BB7BFA35F3AB")
+               // .addTestDevice("69EB1DA1ED362DB39724BB7BFA35F3AB")
                 .build();
 
         mInterstitialAd.loadAd(adRequest);
