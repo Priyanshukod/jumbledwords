@@ -22,7 +22,7 @@ public class JumbleContentProvider extends BaseContentProvider {
     private static final String TYPE_CURSOR_ITEM = "vnd.android.cursor.item/";
     private static final String TYPE_CURSOR_DIR = "vnd.android.cursor.dir/";
 
-    public static final String AUTHORITY = "com.invincible.jumbledwords.provider";
+    public static final String AUTHORITY = "com.stupendous.jumbledwords.provider";
     public static final String CONTENT_URI_BASE = "content://" + AUTHORITY;
 
     private static final int URI_TYPE_CORRECTWORDS = 0;

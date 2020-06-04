@@ -17,8 +17,11 @@ import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.InterstitialAd;
 import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.RequestConfiguration;
 import com.google.android.gms.ads.initialization.InitializationStatus;
 import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
+
+import java.util.Arrays;
 
 /**
  * Created by vinodtakhar on 28/4/16.
@@ -69,6 +72,7 @@ public class BaseActivity extends AppCompatActivity {
                // .addTestDevice("69EB1DA1ED362DB39724BB7BFA35F3AB")
                 .build();
         mAdView.loadAd(adRequest);
+       // new RequestConfiguration.Builder().setTestDeviceIds(Arrays.asList("4AB7E178A6DA09095DAC8021645AC5FC"));
     }
 
     private void requestNewInterstitial() {
