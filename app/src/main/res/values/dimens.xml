@@ -3,5 +3,8 @@
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="elevation">3dp</dimen>
-    <dimen name="tv_dimensions">56dp</dimen>
+    <dimen name="tv_dimensions">72dp</dimen>
+    <dimen name="tv_dimensions_half">36dp</dimen>
+    <dimen name="textsize_22sp">22sp</dimen>
+    <dimen name="radius_10dp">10dp</dimen>
 </resources>

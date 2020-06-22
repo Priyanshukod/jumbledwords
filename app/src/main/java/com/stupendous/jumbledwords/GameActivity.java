@@ -35,7 +35,7 @@ public class GameActivity extends BaseActivity implements View.OnClickListener{
     String correctWordsStr = "";
     int totalWordsCount;
     ImageView iv_isCorrect;
-    volatile long totalTime = 30000;
+    volatile long totalTime = 60000;
     Handler handler;
     Runnable runnableCode;
     ArrayList<String> randomGeneratedIdList = new ArrayList<>();
@@ -269,7 +269,7 @@ public class GameActivity extends BaseActivity implements View.OnClickListener{
         }
         if(correctWordsStr.contains(sb.toString().toUpperCase()) || correctWordsStr.contains(sb.toString().toLowerCase()))
         {
-            totalTime = totalTime + 1000;
+           // totalTime = totalTime + 1000;
             iv_isCorrect.setVisibility(View.VISIBLE);
             iv_isCorrect.setImageDrawable(ContextCompat.getDrawable(GameActivity.this, R.drawable.correct));
             score = score + 1;
