@@ -42,13 +42,14 @@ public class MainActivity extends BaseActivity {
             }
         });
 
-        if(!AppPreferences.getBooleanSharedPreference(this,AppPreferences.KEY_DB_COPIED,false))
+        JumblewordsCursor cursor = new JumblewordsSelection().query(this);
+        if(!AppPreferences.getBooleanSharedPreference(this,AppPreferences.KEY_DB_COPIED,false) || cursor== null || cursor.getCount() == 0)
             Utility.copyDataBase(this,this.openOrCreateDatabase("words.db", Context.MODE_PRIVATE,null).getPath());
 
-        JumblewordsCursor cursor = new JumblewordsSelection().query(this);
+        JumblewordsCursor cursor2 = new JumblewordsSelection().query(this);
 
-        if(cursor!=null){
-            Log.e(TAG,"Count:"+cursor.getCount());
+        if(cursor2!=null){
+            Log.e(TAG,"Count:"+cursor2.getCount());
         }
 
     }

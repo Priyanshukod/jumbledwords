@@ -18,6 +18,7 @@ public class JumblewordsColumns implements BaseColumns {
     public static final String _ID = BaseColumns._ID;
 
     public static final String JUMBLE_WORD = "jumble_word";
+    public static final String LEVEL = "level";
 
 
     public static final String DEFAULT_ORDER = TABLE_NAME + "." +_ID;
@@ -25,7 +26,8 @@ public class JumblewordsColumns implements BaseColumns {
     // @formatter:off
     public static final String[] ALL_COLUMNS = new String[] {
             _ID,
-            JUMBLE_WORD
+            JUMBLE_WORD,
+            LEVEL
     };
     // @formatter:on
 

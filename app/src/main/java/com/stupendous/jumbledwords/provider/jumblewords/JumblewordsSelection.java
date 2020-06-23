@@ -115,4 +115,8 @@ public class JumblewordsSelection extends AbstractSelection<JumblewordsSelection
         orderBy(JumblewordsColumns.JUMBLE_WORD, false);
         return this;
     }
+    public JumblewordsSelection level(int value) {
+        addEquals("jumblewords." + JumblewordsColumns.LEVEL, toObjectArray(value));
+        return this;
+    }
 }

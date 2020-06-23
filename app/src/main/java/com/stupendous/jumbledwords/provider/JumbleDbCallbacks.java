@@ -6,6 +6,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
 import com.stupendous.jumbledwords.BuildConfig;
+import com.stupendous.jumbledwords.provider.correctwords.CorrectwordsColumns;
+import com.stupendous.jumbledwords.provider.jumblewords.JumblewordsColumns;
 
 /**
  * Implement your custom database creation or upgrade code here.
@@ -33,5 +35,7 @@ public class JumbleDbCallbacks {
     public void onUpgrade(final Context context, final SQLiteDatabase db, final int oldVersion, final int newVersion) {
         if (BuildConfig.DEBUG) Log.d(TAG, "Upgrading database from version " + oldVersion + " to " + newVersion);
         // Insert your upgrading code here.
+        db.execSQL("DROP TABLE " + CorrectwordsColumns.TABLE_NAME);
+        db.execSQL("DROP TABLE " + JumblewordsColumns.TABLE_NAME);
     }
 }

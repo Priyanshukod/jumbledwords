@@ -9,6 +9,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Build;
 import android.util.Log;
 
+import com.stupendous.jumbledwords.AppPreferences;
 import com.stupendous.jumbledwords.BuildConfig;
 import com.stupendous.jumbledwords.provider.correctwords.CorrectwordsColumns;
 import com.stupendous.jumbledwords.provider.jumblewords.JumblewordsColumns;
@@ -17,7 +18,7 @@ public class JumbleDb extends SQLiteOpenHelper {
     private static final String TAG = JumbleDb.class.getSimpleName();
 
     public static final String DATABASE_FILE_NAME = "words.db";
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 2;
     private static JumbleDb sInstance;
     private final Context mContext;
     private final JumbleDbCallbacks mOpenHelperCallbacks;
@@ -127,5 +128,6 @@ public class JumbleDb extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         mOpenHelperCallbacks.onUpgrade(mContext, db, oldVersion, newVersion);
+        onCreate(db);
     }
 }
