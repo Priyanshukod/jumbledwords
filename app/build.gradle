@@ -17,10 +17,10 @@ android {
 
     defaultConfig {
         applicationId "com.stupendous.jumbledwords"
-        minSdkVersion 16
+        minSdkVersion 17
         targetSdkVersion 29
-        versionCode 4
-        versionName "1.2"
+        versionCode 5
+        versionName "1.2.1"
     }
     buildTypes {
         release {
@@ -35,6 +35,7 @@ dependencies {
     implementation 'com.google.android.gms:play-services-ads:19.1.0'
     implementation "androidx.core:core-ktx:+"
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation 'pl.droidsonroids.gif:android-gif-drawable:1.2.19'
 }
 repositories {
     mavenCentral()

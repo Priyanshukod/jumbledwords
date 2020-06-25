@@ -16,6 +16,7 @@
             </intent-filter>
         </activity>
         <activity android:name="com.stupendous.jumbledwords.GameActivity"></activity>
+        <activity android:name="com.stupendous.jumbledwords.GameActivity2"></activity>
 
         <provider
             android:name="com.stupendous.jumbledwords.provider.JumbleContentProvider"

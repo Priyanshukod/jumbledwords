@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.os.Handler;
-import androidx.core.content.ContextCompat;
 import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
@@ -14,11 +13,12 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.core.content.ContextCompat;
+
 import com.stupendous.jumbledwords.provider.correctwords.CorrectwordsColumns;
 import com.stupendous.jumbledwords.provider.correctwords.CorrectwordsContentValues;
 import com.stupendous.jumbledwords.provider.jumblewords.JumblewordsColumns;
 import com.stupendous.jumbledwords.provider.jumblewords.JumblewordsContentValues;
-import com.stupendous.jumbledwords.provider.jumblewords.JumblewordsCursor;
 import com.stupendous.jumbledwords.provider.jumblewords.JumblewordsSelection;
 
 import org.jetbrains.annotations.Nullable;
@@ -26,10 +26,10 @@ import org.jetbrains.annotations.Nullable;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class GameActivity extends BaseActivity implements View.OnClickListener{
-    private static final String TAG = GameActivity.class.getName();
+public class GameActivity2 extends BaseActivity implements View.OnClickListener{
+    private static final String TAG = GameActivity2.class.getName();
    // TextView tv_finalAnsArr[];
-    TextView tv_firstLetter, tv_secondLetter, tv_thirdletter, tv_fourthLetter, tv_bestScore, tv_timer;
+    TextView tv_firstLetter, tv_secondLetter, tv_thirdletter, tv_fourthLetter, tv_five, tv_bestScore, tv_timer;
     private int index = 0;
     int id = 0;
     private int score=0;
@@ -47,7 +47,7 @@ public class GameActivity extends BaseActivity implements View.OnClickListener{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_game);
+        setContentView(R.layout.activity_game2);
        // insertTempJumbleWords();
        // insertTempCorrectWords();
 
@@ -67,6 +67,7 @@ public class GameActivity extends BaseActivity implements View.OnClickListener{
         tv_secondLetter = (TextView) findViewById(R.id.tv_second);
         tv_thirdletter = (TextView) findViewById(R.id.tv_third);
         tv_fourthLetter = (TextView) findViewById(R.id.tv_fourth);
+        tv_five = (TextView) findViewById(R.id.tv_five);
         tv_currentScore = (TextView)findViewById(R.id.tv_currentScore);
         tv_bestScore = (TextView)findViewById(R.id.tv_totalScore);
         tv_timer = (TextView)findViewById(R.id.tv_timer);
@@ -85,21 +86,22 @@ public class GameActivity extends BaseActivity implements View.OnClickListener{
             @Override
             public void onClick(View v) {
                 showInterstitial();
-                GameActivity.this.finish();
+                GameActivity2.this.finish();
             }
         });
         findViewById(R.id.restartLayout).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
               //  showInterstitial();
-               startActivity(new Intent(GameActivity.this, GameActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
+               startActivity(new Intent(GameActivity2.this, GameActivity2.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
             }
         });
         tv_firstLetter.setOnClickListener(this);
         tv_secondLetter.setOnClickListener(this);
         tv_thirdletter.setOnClickListener(this);
         tv_fourthLetter.setOnClickListener(this);
-        totalWordsCount = new JumblewordsSelection().level(1).query(this).getCount();
+        tv_five.setOnClickListener(this);
+        totalWordsCount = new JumblewordsSelection().level(2).query(this).getCount();
         // Create the Handler object (on the main thread by default)
          handler = new Handler();
 // Define the code block to be executed
@@ -120,6 +122,7 @@ public class GameActivity extends BaseActivity implements View.OnClickListener{
                     tv_secondLetter.setEnabled(false);
                     tv_thirdletter.setEnabled(false);
                     tv_fourthLetter.setEnabled(false);
+                    tv_five.setEnabled(false);
                     if(score > (SharedPrefs.getInstance().getIntPreference("score", 0)))
                         SharedPrefs.getInstance().writeIntPreference("score", score);
                     tv_timer.setText("Times Up!");
@@ -156,7 +159,7 @@ public class GameActivity extends BaseActivity implements View.OnClickListener{
         getRandomId();
 
         //JumblewordsCursor cursor = new JumblewordsSelection().id(id).level(1).query(this);
-        Cursor cursor = getContentResolver().query(JumblewordsColumns.CONTENT_URI, null, JumblewordsColumns._ID +"=? AND " + JumblewordsColumns.LEVEL + "=?", new String[]{id+"", "1"}, null);
+        Cursor cursor = getContentResolver().query(JumblewordsColumns.CONTENT_URI, null, JumblewordsColumns._ID +"=? AND " + JumblewordsColumns.LEVEL + "=?", new String[]{id+"", "2"}, null);
 
         if(cursor != null && cursor.getCount() > 0 && cursor.moveToFirst())
         {
@@ -174,12 +177,15 @@ public class GameActivity extends BaseActivity implements View.OnClickListener{
             tv_secondLetter.setText(ch[1]+"");
             tv_thirdletter.setText(ch[2]+"");
             tv_fourthLetter.setText(ch[3]+"");
+            tv_five.setText(ch[4]+"");
         }
+        else
+            getJumledWords();
     }
 
     private void getRandomId() {
         Random r = new Random();
-        id = r.nextInt(totalWordsCount) + 1;
+        id = r.nextInt(totalWordsCount) + 52;
         if(randomGeneratedIdList.contains(""+id))
         {
             if(randomGeneratedIdList.size() == totalWordsCount)
@@ -290,7 +296,7 @@ public class GameActivity extends BaseActivity implements View.OnClickListener{
         {
            // totalTime = totalTime + 1000;
             iv_isCorrect.setVisibility(View.VISIBLE);
-            iv_isCorrect.setImageDrawable(ContextCompat.getDrawable(GameActivity.this, R.drawable.correct));
+            iv_isCorrect.setImageDrawable(ContextCompat.getDrawable(GameActivity2.this, R.drawable.correct));
             score = score + 1;
            /* for (int i = 0; i < tv_finalAnsArr.length; i++) {
                 tv_finalAnsArr[i].setText("");
@@ -304,9 +310,9 @@ public class GameActivity extends BaseActivity implements View.OnClickListener{
         }
         else
         {
-            shakeView(GameActivity.this, answerslayout);
+            shakeView(GameActivity2.this, answerslayout);
             iv_isCorrect.setVisibility(View.VISIBLE);
-            iv_isCorrect.setImageDrawable(ContextCompat.getDrawable(GameActivity.this, R.drawable.incorrect));
+            iv_isCorrect.setImageDrawable(ContextCompat.getDrawable(GameActivity2.this, R.drawable.incorrect));
         }
        /* for (int i = 0; i < tv_finalAnsArr.length; i++) {
             tv_finalAnsArr[i].setText("");
@@ -318,6 +324,7 @@ public class GameActivity extends BaseActivity implements View.OnClickListener{
         tv_secondLetter.setEnabled(true);
         tv_thirdletter.setEnabled(true);
         tv_fourthLetter.setEnabled(true);
+        tv_five.setEnabled(true);
 
     }
 
