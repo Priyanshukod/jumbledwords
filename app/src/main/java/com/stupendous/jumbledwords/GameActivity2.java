@@ -12,6 +12,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.core.content.ContextCompat;
 
@@ -35,7 +36,7 @@ public class GameActivity2 extends BaseActivity implements View.OnClickListener{
     private int score=0;
     private TextView tv_currentScore;
     String correctWordsStr = "";
-    int totalWordsCount;
+    int totalWordsCount = 50;
     ImageView iv_isCorrect;
     volatile long totalTime = 60000;
     Handler handler;
@@ -101,7 +102,7 @@ public class GameActivity2 extends BaseActivity implements View.OnClickListener{
         tv_thirdletter.setOnClickListener(this);
         tv_fourthLetter.setOnClickListener(this);
         tv_five.setOnClickListener(this);
-        totalWordsCount = new JumblewordsSelection().level(2).query(this).getCount();
+       // totalWordsCount = new JumblewordsSelection().level(2).query(this).getCount();
         // Create the Handler object (on the main thread by default)
          handler = new Handler();
 // Define the code block to be executed
@@ -180,12 +181,12 @@ public class GameActivity2 extends BaseActivity implements View.OnClickListener{
             tv_five.setText(ch[4]+"");
         }
         else
-            getJumledWords();
+            Toast.makeText(getApplicationContext(), getString(R.string.some_error_occured), Toast.LENGTH_LONG).show();
     }
 
     private void getRandomId() {
         Random r = new Random();
-        id = r.nextInt(totalWordsCount) + 52;
+        id = r.nextInt(totalWordsCount) + 51;
         if(randomGeneratedIdList.contains(""+id))
         {
             if(randomGeneratedIdList.size() == totalWordsCount)

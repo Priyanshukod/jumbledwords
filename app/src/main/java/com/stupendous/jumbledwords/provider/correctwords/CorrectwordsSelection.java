@@ -1,15 +1,21 @@
 package com.stupendous.jumbledwords.provider.correctwords;
 
+// @formatter:off
+import java.util.Date;
+
 import android.content.Context;
 import android.content.ContentResolver;
 import android.database.Cursor;
 import android.net.Uri;
+
+import androidx.loader.content.CursorLoader;
 
 import com.stupendous.jumbledwords.provider.base.AbstractSelection;
 
 /**
  * Selection for the {@code correctwords} table.
  */
+@SuppressWarnings({"unused", "WeakerAccess", "Recycle"})
 public class CorrectwordsSelection extends AbstractSelection<CorrectwordsSelection> {
     @Override
     protected Uri baseUri() {
@@ -54,6 +60,20 @@ public class CorrectwordsSelection extends AbstractSelection<CorrectwordsSelecti
      */
     public CorrectwordsCursor query(Context context) {
         return query(context, null);
+    }
+
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public CursorLoader getCursorLoader(Context context, String[] projection) {
+        return new CursorLoader(context, uri(), projection, sel(), args(), order()) {
+            @Override
+            public Cursor loadInBackground() {
+                return new CorrectwordsCursor(super.loadInBackground());
+            }
+        };
     }
 
 

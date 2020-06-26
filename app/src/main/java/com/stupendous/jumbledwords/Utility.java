@@ -4,11 +4,13 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.os.Build;
 import android.provider.Settings;
 import android.util.Log;
 
+import com.stupendous.jumbledwords.provider.JumbleDbSQLiteOpenHelper;
 import com.stupendous.jumbledwords.provider.jumblewords.JumblewordsCursor;
 import com.stupendous.jumbledwords.provider.jumblewords.JumblewordsSelection;
 
@@ -69,7 +71,9 @@ public class Utility
 				Log.e(TAG,"File already exist");
 				file.delete();
 			}
-
+			SQLiteDatabase temp = JumbleDbSQLiteOpenHelper.getInstance(context).getReadableDatabase();
+			       //gets readable database: creates databases folder containing DB_NAME db
+			temp.close();
 			myOutput =new FileOutputStream(path);
 
 			while((length = myInput.read(buffer)) > 0)
@@ -91,9 +95,10 @@ public class Utility
 
 			if(cursor!=null){
 				Log.e(TAG,"Count:"+cursor.getCount());
+				if(cursor.getCount() > 0)
+					AppPreferences.setBooleanSharedPreference(context,AppPreferences.KEY_DB_COPIED,true);
 			}
 
-			AppPreferences.setBooleanSharedPreference(context,AppPreferences.KEY_DB_COPIED,true);
 		}
 		catch(Exception e)
 		{

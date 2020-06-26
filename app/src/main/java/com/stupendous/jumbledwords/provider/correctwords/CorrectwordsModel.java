@@ -1,19 +1,30 @@
 package com.stupendous.jumbledwords.provider.correctwords;
 
-import com.stupendous.jumbledwords.provider.base.BaseModel;
-
+// @formatter:off
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.stupendous.jumbledwords.provider.base.BaseModel;
+
+import java.util.Date;
+
+
 /**
- * Data model for the {@code correctwords} table.
+ * correctwords words table
  */
+@SuppressWarnings({"WeakerAccess", "unused"})
 public interface CorrectwordsModel extends BaseModel {
 
     /**
-     * Get the {@code correct_word} value.
-     * Can be {@code null}.
+     * Primary key.
      */
-    @Nullable
+    long getId();
+
+    /**
+     * correct words
+     * Cannot be {@code null}.
+     */
+    @NonNull
     String getCorrectWord();
 
     /**

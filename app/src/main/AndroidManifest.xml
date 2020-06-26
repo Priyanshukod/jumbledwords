@@ -8,24 +8,24 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name="com.stupendous.jumbledwords.MainActivity">
+        <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.stupendous.jumbledwords.GameActivity"></activity>
-        <activity android:name="com.stupendous.jumbledwords.GameActivity2"></activity>
+        <activity android:name=".GameActivity" />
+        <activity android:name=".GameActivity2" />
 
         <provider
-            android:name="com.stupendous.jumbledwords.provider.JumbleContentProvider"
+            android:name=".provider.JumbleContentProvider"
             android:authorities="com.stupendous.jumbledwords.provider"
             android:exported="false" />
 
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
-            android:value="ca-app-pub-1914893119799187~1684497951"/>
+            android:value="ca-app-pub-1914893119799187~1684497951" />
     </application>
 
 </manifest>

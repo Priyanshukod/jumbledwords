@@ -13,6 +13,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.stupendous.jumbledwords.provider.correctwords.CorrectwordsColumns;
 import com.stupendous.jumbledwords.provider.correctwords.CorrectwordsContentValues;
@@ -35,7 +36,7 @@ public class GameActivity extends BaseActivity implements View.OnClickListener{
     private int score=0;
     private TextView tv_currentScore;
     String correctWordsStr = "";
-    int totalWordsCount;
+    int totalWordsCount = 50;
     ImageView iv_isCorrect;
     volatile long totalTime = 60000;
     Handler handler;
@@ -99,7 +100,9 @@ public class GameActivity extends BaseActivity implements View.OnClickListener{
         tv_secondLetter.setOnClickListener(this);
         tv_thirdletter.setOnClickListener(this);
         tv_fourthLetter.setOnClickListener(this);
-        totalWordsCount = new JumblewordsSelection().level(1).query(this).getCount();
+ /*       Cursor cursor =  getContentResolver().query(JumblewordsColumns.CONTENT_URI, null, JumblewordsColumns.LEVEL + "=?", new String[]{"1"}, null);
+        if(cursor != null  && cursor.getCount() > 0)
+            totalWordsCount = cursor.getCount();*/
         // Create the Handler object (on the main thread by default)
          handler = new Handler();
 // Define the code block to be executed
@@ -175,6 +178,8 @@ public class GameActivity extends BaseActivity implements View.OnClickListener{
             tv_thirdletter.setText(ch[2]+"");
             tv_fourthLetter.setText(ch[3]+"");
         }
+        else
+            Toast.makeText(getApplicationContext(), getString(R.string.some_error_occured), Toast.LENGTH_LONG).show();
     }
 
     private void getRandomId() {

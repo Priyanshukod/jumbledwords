@@ -1,17 +1,20 @@
 package com.stupendous.jumbledwords.provider.base;
 
+// @formatter:off
 import java.util.Date;
 import java.util.HashMap;
 
 import android.database.Cursor;
 import android.database.CursorWrapper;
+import android.provider.BaseColumns;
 
+@SuppressWarnings({"WeakerAccess", "unused"})
 public abstract class AbstractCursor extends CursorWrapper {
     private final HashMap<String, Integer> mColumnIndexes;
 
     public AbstractCursor(Cursor cursor) {
         super(cursor);
-        mColumnIndexes = new HashMap<String, Integer>(cursor.getColumnCount() * 4 / 3, .75f);
+        mColumnIndexes = new HashMap<>(cursor.getColumnCount() * 4 / 3, .75f);
     }
 
     public abstract long getId();

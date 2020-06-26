@@ -8,6 +8,7 @@
     <string name="best_score">Best Score : %1$d</string>
     <string name="select_a_level_to_start_game">Select a level to start the game</string>
     <string name="click_here_to_start">Click here to start</string>
+    <string name="some_error_occured">Sorry, some error occured, please start the level again</string>
     <!--
         <string name="ad_banner">ca-app-pub-3940256099942544/6300978111</string>
     -->

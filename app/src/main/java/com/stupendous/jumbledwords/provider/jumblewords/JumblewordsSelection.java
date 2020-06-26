@@ -1,15 +1,21 @@
 package com.stupendous.jumbledwords.provider.jumblewords;
 
+// @formatter:off
+import java.util.Date;
+
 import android.content.Context;
 import android.content.ContentResolver;
 import android.database.Cursor;
 import android.net.Uri;
+
+import androidx.loader.content.CursorLoader;
 
 import com.stupendous.jumbledwords.provider.base.AbstractSelection;
 
 /**
  * Selection for the {@code jumblewords} table.
  */
+@SuppressWarnings({"unused", "WeakerAccess", "Recycle"})
 public class JumblewordsSelection extends AbstractSelection<JumblewordsSelection> {
     @Override
     protected Uri baseUri() {
@@ -54,6 +60,20 @@ public class JumblewordsSelection extends AbstractSelection<JumblewordsSelection
      */
     public JumblewordsCursor query(Context context) {
         return query(context, null);
+    }
+
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public CursorLoader getCursorLoader(Context context, String[] projection) {
+        return new CursorLoader(context, uri(), projection, sel(), args(), order()) {
+            @Override
+            public Cursor loadInBackground() {
+                return new JumblewordsCursor(super.loadInBackground());
+            }
+        };
     }
 
 
@@ -115,8 +135,44 @@ public class JumblewordsSelection extends AbstractSelection<JumblewordsSelection
         orderBy(JumblewordsColumns.JUMBLE_WORD, false);
         return this;
     }
-    public JumblewordsSelection level(int value) {
-        addEquals("jumblewords." + JumblewordsColumns.LEVEL, toObjectArray(value));
+
+    public JumblewordsSelection level(Integer... value) {
+        addEquals(JumblewordsColumns.LEVEL, value);
+        return this;
+    }
+
+    public JumblewordsSelection levelNot(Integer... value) {
+        addNotEquals(JumblewordsColumns.LEVEL, value);
+        return this;
+    }
+
+    public JumblewordsSelection levelGt(int value) {
+        addGreaterThan(JumblewordsColumns.LEVEL, value);
+        return this;
+    }
+
+    public JumblewordsSelection levelGtEq(int value) {
+        addGreaterThanOrEquals(JumblewordsColumns.LEVEL, value);
+        return this;
+    }
+
+    public JumblewordsSelection levelLt(int value) {
+        addLessThan(JumblewordsColumns.LEVEL, value);
+        return this;
+    }
+
+    public JumblewordsSelection levelLtEq(int value) {
+        addLessThanOrEquals(JumblewordsColumns.LEVEL, value);
+        return this;
+    }
+
+    public JumblewordsSelection orderByLevel(boolean desc) {
+        orderBy(JumblewordsColumns.LEVEL, desc);
+        return this;
+    }
+
+    public JumblewordsSelection orderByLevel() {
+        orderBy(JumblewordsColumns.LEVEL, false);
         return this;
     }
 }

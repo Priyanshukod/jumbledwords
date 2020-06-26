@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
+import com.stupendous.jumbledwords.provider.JumbleDbSQLiteOpenHelper;
 import com.stupendous.jumbledwords.provider.jumblewords.JumblewordsCursor;
 import com.stupendous.jumbledwords.provider.jumblewords.JumblewordsSelection;
 
@@ -51,6 +52,7 @@ public class MainActivity extends BaseActivity {
         });*/
 
         JumblewordsCursor cursor = new JumblewordsSelection().query(this);
+
         if(!AppPreferences.getBooleanSharedPreference(this,AppPreferences.KEY_DB_COPIED,false) || cursor== null || cursor.getCount() == 0)
             Utility.copyDataBase(this,this.openOrCreateDatabase("words.db", Context.MODE_PRIVATE,null).getPath());
 
@@ -58,7 +60,8 @@ public class MainActivity extends BaseActivity {
 
         if(cursor2!=null){
             Log.e(TAG,"Count:"+cursor2.getCount());
-        }
+            }
+
 
     }
 

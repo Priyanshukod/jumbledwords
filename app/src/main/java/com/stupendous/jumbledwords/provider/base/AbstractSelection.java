@@ -1,14 +1,18 @@
 package com.stupendous.jumbledwords.provider.base;
 
+// @formatter:off
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import android.content.Context;
 import android.content.ContentResolver;
+import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
 
+import androidx.loader.content.CursorLoader;
+
+@SuppressWarnings({"WeakerAccess", "unused"})
 public abstract class AbstractSelection<T extends AbstractSelection<?>> {
     private static final String EQ = "=?";
     private static final String PAREN_OPEN = "(";
@@ -30,17 +34,17 @@ public abstract class AbstractSelection<T extends AbstractSelection<?>> {
     private static final String STARTS = " LIKE ? || '%'";
     private static final String ENDS = " LIKE '%' || ?";
     private static final String COUNT = "COUNT(*)";
-    private static final String DESC = " DESC";
+    public static final String DESC = " DESC";
 
     private final StringBuilder mSelection = new StringBuilder();
-    private final List<String> mSelectionArgs = new ArrayList<String>(5);
+    private final List<String> mSelectionArgs = new ArrayList<>(5);
 
     private final StringBuilder mOrderBy = new StringBuilder();
 
-    Boolean mNotify;
-    String mGroupBy;
-    String mHaving;
-    Integer mLimit;
+    private Boolean mNotify;
+    private String mGroupBy;
+    private String mHaving;
+    private Integer mLimit;
 
     protected void addEquals(String column, Object[] value) {
         mSelection.append(column);
@@ -178,13 +182,15 @@ public abstract class AbstractSelection<T extends AbstractSelection<?>> {
         mSelectionArgs.add(valueOf(value));
     }
 
-    public void addRaw(String raw, Object... args) {
+    @SuppressWarnings("unchecked")
+    public T addRaw(String raw, Object... args) {
         mSelection.append(" ");
         mSelection.append(raw);
         mSelection.append(" ");
         for (Object arg : args) {
             mSelectionArgs.add(valueOf(arg));
         }
+        return (T) this;
     }
 
     private String valueOf(Object obj) {
@@ -256,7 +262,7 @@ public abstract class AbstractSelection<T extends AbstractSelection<?>> {
     }
 
     protected Object[] toObjectArray(Boolean value) {
-        return new Object[] { value };
+        return new Object[] {value};
     }
 
 
@@ -361,13 +367,48 @@ public abstract class AbstractSelection<T extends AbstractSelection<?>> {
         return (T) this;
     }
 
+    /**
+     * Returns the number of rows selected by this object.
+     *
+     * @param resolver The content resolver to use.
+     * @return The number of rows selected by this object.
+     */
     public int count(ContentResolver resolver) {
-        Cursor cursor = resolver.query(uri(), new String[] { COUNT }, sel(), args(), null);
+        Cursor cursor = resolver.query(uri(), new String[] {COUNT}, sel(), args(), null);
         if (cursor == null) return 0;
         try {
             return cursor.moveToFirst() ? cursor.getInt(0) : 0;
         } finally {
             cursor.close();
         }
+    }
+
+    /**
+     * Returns the number of rows selected by this object.
+     *
+     * @param context The context to use.
+     * @return The number of rows selected by this object.
+     */
+    public int count(Context context) {
+        return count(context.getContentResolver());
+    }
+
+    /**
+     * Returns a {@code CursorLoader} based on this selection.
+     *
+     * @param context The context to use.
+     * @param projection The projection to use.
+     * @return The CursorLoader.
+     */
+    public abstract CursorLoader getCursorLoader(Context context, String[] projection);
+
+    /**
+     * Returns a {@code CursorLoader} based on this selection, with a {@code null} (all columns) selection.
+     *
+     * @param context The context to use.
+     * @return The CursorLoader.
+     */
+    public CursorLoader getCursorLoader(Context context) {
+        return getCursorLoader(context, null);
     }
 }

@@ -1,5 +1,6 @@
 package com.stupendous.jumbledwords.provider.base;
 
+// @formatter:off
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -16,6 +17,9 @@ import android.net.Uri;
 import android.provider.BaseColumns;
 import android.util.Log;
 
+import androidx.annotation.NonNull;
+
+@SuppressWarnings({"ConstantConditions", "unused"})
 public abstract class BaseContentProvider extends ContentProvider {
     public static final String QUERY_NOTIFY = "QUERY_NOTIFY";
     public static final String QUERY_GROUP_BY = "QUERY_GROUP_BY";
@@ -62,7 +66,7 @@ public abstract class BaseContentProvider extends ContentProvider {
 
 
     @Override
-    public Uri insert(Uri uri, ContentValues values) {
+    public Uri insert(@NonNull Uri uri, ContentValues values) {
         String table = uri.getLastPathSegment();
         long rowId = mSqLiteOpenHelper.getWritableDatabase().insertOrThrow(table, null, values);
         if (rowId == -1) return null;
@@ -74,7 +78,7 @@ public abstract class BaseContentProvider extends ContentProvider {
     }
 
     @Override
-    public int bulkInsert(Uri uri, ContentValues[] values) {
+    public int bulkInsert(@NonNull Uri uri, @NonNull ContentValues[] values) {
         String table = uri.getLastPathSegment();
         SQLiteDatabase db = mSqLiteOpenHelper.getWritableDatabase();
         int res = 0;
@@ -100,7 +104,7 @@ public abstract class BaseContentProvider extends ContentProvider {
     }
 
     @Override
-    public int update(Uri uri, ContentValues values, String selection, String[] selectionArgs) {
+    public int update(@NonNull Uri uri, ContentValues values, String selection, String[] selectionArgs) {
         QueryParams queryParams = getQueryParams(uri, selection, null);
         int res = mSqLiteOpenHelper.getWritableDatabase().update(queryParams.table, values, queryParams.selection, selectionArgs);
         String notify;
@@ -111,7 +115,7 @@ public abstract class BaseContentProvider extends ContentProvider {
     }
 
     @Override
-    public int delete(Uri uri, String selection, String[] selectionArgs) {
+    public int delete(@NonNull Uri uri, String selection, String[] selectionArgs) {
         QueryParams queryParams = getQueryParams(uri, selection, null);
         int res = mSqLiteOpenHelper.getWritableDatabase().delete(queryParams.table, queryParams.selection, selectionArgs);
         String notify;
@@ -122,7 +126,7 @@ public abstract class BaseContentProvider extends ContentProvider {
     }
 
     @Override
-    public Cursor query(Uri uri, String[] projection, String selection, String[] selectionArgs, String sortOrder) {
+    public Cursor query(@NonNull Uri uri, String[] projection, String selection, String[] selectionArgs, String sortOrder) {
         String groupBy = uri.getQueryParameter(QUERY_GROUP_BY);
         String having = uri.getQueryParameter(QUERY_HAVING);
         String limit = uri.getQueryParameter(QUERY_LIMIT);
@@ -148,8 +152,8 @@ public abstract class BaseContentProvider extends ContentProvider {
     }
 
     @Override
-    public ContentProviderResult[] applyBatch(ArrayList<ContentProviderOperation> operations) throws OperationApplicationException {
-        HashSet<Uri> urisToNotify = new HashSet<Uri>(operations.size());
+    public @NonNull ContentProviderResult[] applyBatch(@NonNull ArrayList<ContentProviderOperation> operations) throws OperationApplicationException {
+        HashSet<Uri> urisToNotify = new HashSet<>(operations.size());
         for (ContentProviderOperation operation : operations) {
             urisToNotify.add(operation.getUri());
         }
