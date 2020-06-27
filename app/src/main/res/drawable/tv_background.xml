@@ -7,6 +7,13 @@
             <corners android:radius="@dimen/tv_dimensions_half"/>
         </shape>
     </item>
+    <item android:state_enabled="false">
+
+        <shape android:shape="oval">
+            <solid android:color="@color/grey"/>
+            <corners android:radius="@dimen/tv_dimensions_half"/>
+        </shape>
+    </item>
     <item>
 
         <shape android:shape="oval">

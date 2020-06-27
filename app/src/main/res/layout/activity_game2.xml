@@ -110,7 +110,8 @@
         <com.stupendous.jumbledwords.AnswerEditText
             android:id="@+id/etAnswers"
             style="@android:style/Widget.EditText"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
+            android:layout_weight="1"
             android:layout_height="wrap_content"
             android:layout_gravity="start"
             android:background="@null"
@@ -130,6 +131,13 @@
             android:visibility="visible"
             app:pinCharacterSpacing="12dp"
             app:pinLineColors="@color/pin_line_colors" />
+        <ImageView
+            android:id="@+id/ivClear"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_gravity="center_vertical"
+            android:src="@android:drawable/ic_notification_clear_all"
+            />
 
       <!--  <TextView
             android:id="@+id/txtVw1"

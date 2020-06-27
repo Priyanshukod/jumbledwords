@@ -96,6 +96,13 @@ public class GameActivity extends BaseActivity implements View.OnClickListener{
                startActivity(new Intent(GameActivity.this, GameActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
             }
         });
+        findViewById(R.id.ivClear).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                etAnswers.setText("");
+                enableJumbleLetters(true);
+            }
+        });
         tv_firstLetter.setOnClickListener(this);
         tv_secondLetter.setOnClickListener(this);
         tv_thirdletter.setOnClickListener(this);
@@ -119,10 +126,7 @@ public class GameActivity extends BaseActivity implements View.OnClickListener{
                 } else
                 {
                     iv_isCorrect.setVisibility(View.GONE);
-                    tv_firstLetter.setEnabled(false);
-                    tv_secondLetter.setEnabled(false);
-                    tv_thirdletter.setEnabled(false);
-                    tv_fourthLetter.setEnabled(false);
+                    enableJumbleLetters(false);
                     if(score > (SharedPrefs.getInstance().getIntPreference("score", 0)))
                         SharedPrefs.getInstance().writeIntPreference("score", score);
                     tv_timer.setText("Times Up!");
@@ -198,64 +202,6 @@ public class GameActivity extends BaseActivity implements View.OnClickListener{
         }
     }
 
-    private void insertTempJumbleWords() {
-        ArrayList<String> wordList = new ArrayList<>();
-        wordList.add("ilmk");
-        wordList.add("olop");
-        wordList.add("isht");
-        wordList.add("disa");
-        JumblewordsContentValues values = new JumblewordsContentValues();
-        for(int i = 0 ;i< wordList.size() ;i++)
-        {
-            values.putJumbleWord(wordList.get(i));
-            values.insert(this);
-        }
-    }
-
-    private void insertTempCorrectWords() {
-        /*ArrayList<String> wordList = new ArrayList<>();
-        wordList.add("milk");
-        wordList.add("polo");
-        wordList.add("pool");
-        wordList.add("loop");
-        wordList.add("this");
-        wordList.add("shit");
-        wordList.add("aids");
-        wordList.add("said");
-        */CorrectwordsContentValues values = new CorrectwordsContentValues();
-
-        values.putJumbleWordId(1);
-        values.putCorrectWord("milk");
-        values.insert(this);
-
-        values.putJumbleWordId(2);
-        values.putCorrectWord("polo");
-        values.insert(this);
-
-        values.putJumbleWordId(2);
-        values.putCorrectWord("pool");
-        values.insert(this);
-
-        values.putJumbleWordId(2);
-        values.putCorrectWord("loop");
-        values.insert(this);
-
-        values.putJumbleWordId(3);
-        values.putCorrectWord("this");
-        values.insert(this);
-
-        values.putJumbleWordId(3);
-        values.putCorrectWord("shit");
-        values.insert(this);
-
-        values.putJumbleWordId(4);
-        values.putCorrectWord("said");
-        values.insert(this);
-
-        values.putJumbleWordId(4);
-        values.putCorrectWord("aids");
-        values.insert(this);
-    }
 
     @Override
     public void onClick(View v) {
@@ -267,6 +213,7 @@ public class GameActivity extends BaseActivity implements View.OnClickListener{
             index = 0;
             validateWord();
         }*/
+       v.setEnabled(false);
        StringBuilder sb = new StringBuilder("");
        sb.append(etAnswers.getText().toString());
        sb.append(((TextView)v).getText().toString());
@@ -319,11 +266,15 @@ public class GameActivity extends BaseActivity implements View.OnClickListener{
        etAnswers.setText("");
         getJumledWords();
         tv_currentScore.setText(score +"");
-        tv_firstLetter.setEnabled(true);
-        tv_secondLetter.setEnabled(true);
-        tv_thirdletter.setEnabled(true);
-        tv_fourthLetter.setEnabled(true);
+        enableJumbleLetters(true);
 
+    }
+
+    private void enableJumbleLetters(boolean enabled) {
+        tv_firstLetter.setEnabled(enabled);
+        tv_secondLetter.setEnabled(enabled);
+        tv_thirdletter.setEnabled(enabled);
+        tv_fourthLetter.setEnabled(enabled);
     }
 
     public static void shakeView(Context context, View viewToShake) {
