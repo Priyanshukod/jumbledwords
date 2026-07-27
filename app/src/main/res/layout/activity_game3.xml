@@ -141,57 +141,57 @@
             android:src="@android:drawable/ic_notification_clear_all"
             />
 
-      <!--  <TextView
-            android:id="@+id/txtVw1"
-            android:layout_width="@dimen/tv_dimensions"
-            android:layout_height="@dimen/tv_dimensions"
-            android:background="@drawable/answer_bg"
-            android:elevation="@dimen/elevation"
-            android:gravity="center"
-            android:textColor="#fff"
-            android:textSize="@dimen/textsize_22sp"
-            android:textStyle="bold"
+        <!--  <TextView
+              android:id="@+id/txtVw1"
+              android:layout_width="@dimen/tv_dimensions"
+              android:layout_height="@dimen/tv_dimensions"
+              android:background="@drawable/answer_bg"
+              android:elevation="@dimen/elevation"
+              android:gravity="center"
+              android:textColor="#fff"
+              android:textSize="@dimen/textsize_22sp"
+              android:textStyle="bold"
 
-            tools:text="0" />
+              tools:text="0" />
 
-        <TextView
-            android:id="@+id/txtVw2"
-            android:layout_width="@dimen/tv_dimensions"
-            android:layout_height="@dimen/tv_dimensions"
-            android:textColor="#fff"
-            android:textStyle="bold"
-            android:textSize="@dimen/textsize_22sp"
-            android:elevation="@dimen/elevation"
-            android:background="@drawable/answer_bg"
-            android:layout_marginLeft="15dp"
-            android:gravity="center"
-            tools:text="0" />
+          <TextView
+              android:id="@+id/txtVw2"
+              android:layout_width="@dimen/tv_dimensions"
+              android:layout_height="@dimen/tv_dimensions"
+              android:textColor="#fff"
+              android:textStyle="bold"
+              android:textSize="@dimen/textsize_22sp"
+              android:elevation="@dimen/elevation"
+              android:background="@drawable/answer_bg"
+              android:layout_marginLeft="15dp"
+              android:gravity="center"
+              tools:text="0" />
 
-        <TextView
-            android:id="@+id/txtVw3"
-            android:layout_width="@dimen/tv_dimensions"
-            android:layout_height="@dimen/tv_dimensions"
-            android:textColor="#fff"
-            android:textStyle="bold"
-            android:textSize="@dimen/textsize_22sp"
-            android:elevation="@dimen/elevation"
-            android:background="@drawable/answer_bg"
-            android:layout_marginLeft="15dp"
-            android:gravity="center"
-            tools:text="0" />
+          <TextView
+              android:id="@+id/txtVw3"
+              android:layout_width="@dimen/tv_dimensions"
+              android:layout_height="@dimen/tv_dimensions"
+              android:textColor="#fff"
+              android:textStyle="bold"
+              android:textSize="@dimen/textsize_22sp"
+              android:elevation="@dimen/elevation"
+              android:background="@drawable/answer_bg"
+              android:layout_marginLeft="15dp"
+              android:gravity="center"
+              tools:text="0" />
 
-        <TextView
-            android:id="@+id/txtVw4"
-            android:layout_width="@dimen/tv_dimensions"
-            android:layout_height="@dimen/tv_dimensions"
-            android:textColor="#fff"
-            android:textStyle="bold"
-            android:textSize="@dimen/textsize_22sp"
-            android:elevation="@dimen/elevation"
-            android:background="@drawable/answer_bg"
-            android:layout_marginLeft="15dp"
-            android:gravity="center"
-            tools:text="0" />-->
+          <TextView
+              android:id="@+id/txtVw4"
+              android:layout_width="@dimen/tv_dimensions"
+              android:layout_height="@dimen/tv_dimensions"
+              android:textColor="#fff"
+              android:textStyle="bold"
+              android:textSize="@dimen/textsize_22sp"
+              android:elevation="@dimen/elevation"
+              android:background="@drawable/answer_bg"
+              android:layout_marginLeft="15dp"
+              android:gravity="center"
+              tools:text="0" />-->
     </LinearLayout>
 
 
@@ -205,76 +205,89 @@
         android:gravity="center_horizontal"
         android:orientation="vertical">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:padding="10dp"
-
-        android:layout_below="@+id/answersLayout"
-        android:gravity="center_horizontal"
-        android:orientation="horizontal">
         <TextView
-            android:id="@+id/tv_first"
-            android:layout_width="@dimen/tv_dimensions"
-            android:layout_height="@dimen/tv_dimensions"
-            android:textColor="#fff"
-            android:textStyle="bold"
-            android:textSize="@dimen/textsize_22sp"
-            android:elevation="@dimen/elevation"
-            android:background="@drawable/tv_background"
-            android:layout_marginLeft="15dp"
-            android:gravity="center"
-            tools:text="0" />
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:text="@string/level3_hint"
+            android:layout_below="@+id/answersLayout"
+            android:layout_marginBottom="20dp"
+            android:layout_centerInParent="true"
+            android:layout_alignBottom="@+id/answersLayout" />
 
-        <TextView
-            android:id="@+id/tv_second"
-            android:layout_width="@dimen/tv_dimensions"
-            android:layout_height="@dimen/tv_dimensions"
-            android:textColor="#fff"
-            android:textStyle="bold"
-            android:textSize="@dimen/textsize_22sp"
-            android:elevation="@dimen/elevation"
-            android:background="@drawable/tv_background"
-            android:layout_marginLeft="15dp"
-            android:gravity="center"
-            tools:text="0" />
-</LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:padding="10dp"
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:padding="10dp"
+            android:layout_below="@+id/answersLayout"
+            android:gravity="center_horizontal"
+            android:orientation="horizontal">
 
-        android:layout_below="@+id/answersLayout"
-        android:gravity="center_horizontal"
-        android:orientation="horizontal">
-        <TextView
-            android:id="@+id/tv_third"
-            android:layout_width="@dimen/tv_dimensions"
-            android:layout_height="@dimen/tv_dimensions"
-            android:textColor="#fff"
-            android:textStyle="bold"
-            android:textSize="@dimen/textsize_22sp"
-            android:elevation="@dimen/elevation"
-            android:background="@drawable/tv_background"
-            android:layout_marginLeft="15dp"
-            android:gravity="center"
-            tools:text="0" />
+            <TextView
+                android:id="@+id/tv_first"
+                android:layout_width="@dimen/tv_dimensions"
+                android:layout_height="@dimen/tv_dimensions"
+                android:textColor="#fff"
+                android:textStyle="bold"
+                android:textSize="@dimen/textsize_22sp"
+                android:elevation="@dimen/elevation"
+                android:background="@drawable/tv_background"
+                android:layout_marginLeft="15dp"
+                android:gravity="center"
+                tools:text="0" />
 
-        <TextView
-            android:id="@+id/tv_fourth"
-            android:layout_width="@dimen/tv_dimensions"
-            android:layout_height="@dimen/tv_dimensions"
-            android:textColor="#fff"
-            android:textStyle="bold"
-            android:textSize="@dimen/textsize_22sp"
-            android:elevation="@dimen/elevation"
-            android:background="@drawable/tv_background"
-            android:layout_marginLeft="15dp"
-            android:gravity="center"
-            tools:text="0" />
+            <TextView
+                android:id="@+id/tv_second"
+                android:layout_width="@dimen/tv_dimensions"
+                android:layout_height="@dimen/tv_dimensions"
+                android:textColor="#fff"
+                android:textStyle="bold"
+                android:textSize="@dimen/textsize_22sp"
+                android:elevation="@dimen/elevation"
+                android:background="@drawable/tv_background"
+                android:layout_marginLeft="15dp"
+                android:gravity="center"
+                tools:text="0" />
         </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:padding="10dp"
+
+            android:layout_below="@+id/answersLayout"
+            android:gravity="center_horizontal"
+            android:orientation="horizontal">
+            <TextView
+                android:id="@+id/tv_third"
+                android:layout_width="@dimen/tv_dimensions"
+                android:layout_height="@dimen/tv_dimensions"
+                android:textColor="#fff"
+                android:textStyle="bold"
+                android:textSize="@dimen/textsize_22sp"
+                android:elevation="@dimen/elevation"
+                android:background="@drawable/tv_background"
+                android:layout_marginLeft="15dp"
+                android:gravity="center"
+                tools:text="0" />
+
+            <TextView
+                android:id="@+id/tv_fourth"
+                android:layout_width="@dimen/tv_dimensions"
+                android:layout_height="@dimen/tv_dimensions"
+                android:textColor="#fff"
+                android:textStyle="bold"
+                android:textSize="@dimen/textsize_22sp"
+                android:elevation="@dimen/elevation"
+                android:background="@drawable/tv_background"
+                android:layout_marginLeft="15dp"
+                android:gravity="center"
+                tools:text="0" />
+        </LinearLayout>
+
         <TextView
             android:layout_marginTop="10dp"
             android:layout_width="match_parent"
@@ -292,6 +305,7 @@
             android:src="@drawable/correct"
             app:tint="#008000"
             android:visibility="invisible" />
+
     </LinearLayout>
 
     <RelativeLayout
@@ -308,7 +322,7 @@
             android:layout_height="56dp"
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
-            android:tint="@color/blue"
+            app:tint="@color/blue"
             android:src="@drawable/home"/>
 
         <LinearLayout
@@ -323,7 +337,7 @@
                 android:id="@+id/iv_startGame"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
-                android:tint="#008000"
+                app:tint="#008000"
                 android:clickable="false"
                 android:src="@drawable/start"/>
 

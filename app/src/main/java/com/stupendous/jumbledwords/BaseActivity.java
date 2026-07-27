@@ -15,7 +15,7 @@ import android.widget.Toast;
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
-import com.google.android.gms.ads.InterstitialAd;
+//import com.google.android.gms.ads.InterstitialAd;
 import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.ads.RequestConfiguration;
 import com.google.android.gms.ads.initialization.InitializationStatus;
@@ -31,7 +31,8 @@ public class BaseActivity extends AppCompatActivity {
     private static final int PERMISSIONS_REQUEST_CODE = 100;
     private String permissionBeingAsked;
     private int clientRequestCode;
-    private InterstitialAd mInterstitialAd;
+
+    //private InterstitialAd mInterstitialAd;
     private ProgressDialog progressDialog;
     private AdView mAdView;
 
@@ -46,24 +47,24 @@ public class BaseActivity extends AppCompatActivity {
             public void onInitializationComplete(InitializationStatus initializationStatus) {
             }
         });
-        mInterstitialAd = new InterstitialAd(this);
-        mInterstitialAd.setAdUnitId(getResources().getString(R.string.interstial_id));
+//        mInterstitialAd = new InterstitialAd(this);
+//        mInterstitialAd.setAdUnitId(getResources().getString(R.string.interstial_id));
 
-        mInterstitialAd.setAdListener(new AdListener() {
-            @Override
-            public void onAdClosed() {
-                requestNewInterstitial();
-            }
-        });
+//        mInterstitialAd.setAdListener(new AdListener() {
+//            @Override
+//            public void onAdClosed() {
+//                requestNewInterstitial();
+//            }
+//        });
 
-        requestNewInterstitial();
+   //     requestNewInterstitial();
     }
 
-    protected void showInterstitial(){
-        if (mInterstitialAd.isLoaded()) {
-            mInterstitialAd.show();
-        }
-    }
+//    protected void showInterstitial(){
+//        if (mInterstitialAd.isLoaded()) {
+//            mInterstitialAd.show();
+//        }
+//    }
 
     protected void initBanner() {
         mAdView = (AdView) findViewById(R.id.adView);
@@ -75,14 +76,14 @@ public class BaseActivity extends AppCompatActivity {
        // new RequestConfiguration.Builder().setTestDeviceIds(Arrays.asList("4AB7E178A6DA09095DAC8021645AC5FC"));
     }
 
-    private void requestNewInterstitial() {
-        AdRequest adRequest = new AdRequest.Builder()
-               // .addTestDevice("69EB1DA1ED362DB39724BB7BFA35F3AB")
-               // .addTestDevice("69EB1DA1ED362DB39724BB7BFA35F3AB")
-                .build();
-
-        mInterstitialAd.loadAd(adRequest);
-    }
+//    private void requestNewInterstitial() {
+//        AdRequest adRequest = new AdRequest.Builder()
+//               // .addTestDevice("69EB1DA1ED362DB39724BB7BFA35F3AB")
+//               // .addTestDevice("69EB1DA1ED362DB39724BB7BFA35F3AB")
+//                .build();
+//
+//        mInterstitialAd.loadAd(adRequest);
+//    }
 
     protected void requestPermission(int requestCode,String permission) {
 

@@ -131,7 +131,7 @@ class AnswerEditText @JvmOverloads constructor(context: Context, attrs: Attribut
         mLinesPaint = Paint(paint)
         mLinesPaint!!.strokeWidth = mLineStroke
         val outValue = TypedValue()
-        context.theme.resolveAttribute(R.attr.colorControlActivated,
+        context.theme.resolveAttribute(androidx.appcompat.R.attr.colorControlActivated,
                 outValue, true)
         val colorSelected = outValue.data
         mColors[0] = colorSelected

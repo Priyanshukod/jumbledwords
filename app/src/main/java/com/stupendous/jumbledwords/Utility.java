@@ -24,6 +24,9 @@ public class Utility
 
 	private static final String TAG = Utility.class.getName();
 
+	static String LEVEL_1_BEST_SCORE = "level1_best_score";
+	static  String LEVEL_2_BEST_SCORE = "level2_best_score";
+
 	public static void openAppSettings(Context context) {
 		Intent intent = new Intent();
 		intent.setAction(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);

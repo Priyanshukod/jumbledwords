@@ -31,9 +31,9 @@ import org.jetbrains.annotations.Nullable;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class GameActivity extends BaseActivity implements View.OnClickListener{
+public class GameActivity3 extends BaseActivity implements View.OnClickListener{
     private static final String TAG = GameActivity.class.getName();
-   // TextView tv_finalAnsArr[];
+    // TextView tv_finalAnsArr[];
     TextView tv_firstLetter, tv_secondLetter, tv_thirdletter, tv_fourthLetter, tv_bestScore, tv_timer;
     private int index = 0;
     int id = 0;
@@ -55,8 +55,8 @@ public class GameActivity extends BaseActivity implements View.OnClickListener{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
-       // insertTempJumbleWords();
-       // insertTempCorrectWords();
+        // insertTempJumbleWords();
+        // insertTempCorrectWords();
 
         initBanner();
 
@@ -88,21 +88,21 @@ public class GameActivity extends BaseActivity implements View.OnClickListener{
             }
         });
 
-       // tv_timer.startAnimation(anim);
+        // tv_timer.startAnimation(anim);
         tv_bestScore.setText(SharedPrefs.getInstance().getIntPreference(Utility.LEVEL_1_BEST_SCORE, 0) +"");
 
         findViewById(R.id.iv_quitGame).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-            //    showInterstitial();
-                GameActivity.this.finish();
+                //    showInterstitial();
+                GameActivity3.this.finish();
             }
         });
         findViewById(R.id.restartLayout).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-              //  showInterstitial();
-               startActivity(new Intent(GameActivity.this, GameActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
+                //  showInterstitial();
+                startActivity(new Intent(GameActivity3.this, GameActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
             }
         });
 
@@ -113,7 +113,7 @@ public class GameActivity extends BaseActivity implements View.OnClickListener{
                 enableJumbleLetters(true);
             }
         });
-        
+
         tv_firstLetter.setOnClickListener(this);
         tv_secondLetter.setOnClickListener(this);
         tv_thirdletter.setOnClickListener(this);
@@ -122,7 +122,7 @@ public class GameActivity extends BaseActivity implements View.OnClickListener{
         if(cursor != null  && cursor.getCount() > 0)
             totalWordsCount = cursor.getCount();*/
         // Create the Handler object (on the main thread by default)
-         handler = new Handler();
+        handler = new Handler();
 // Define the code block to be executed
         runnableCode = new Runnable() {
             @Override
@@ -146,7 +146,7 @@ public class GameActivity extends BaseActivity implements View.OnClickListener{
                     if(score > oldScore) {
                         SharedPrefs.getInstance().writeIntPreference(Utility.LEVEL_1_BEST_SCORE, score);
 
-                        new AlertDialog.Builder(GameActivity.this)
+                        new AlertDialog.Builder(GameActivity3.this)
                                 .setTitle(R.string.new_high_score_title)
                                 .setMessage(getString(R.string.new_high_score_message, score))
                                 .setPositiveButton(android.R.string.ok, null)
@@ -188,12 +188,12 @@ public class GameActivity extends BaseActivity implements View.OnClickListener{
         if(cursor != null && cursor.getCount() > 0)
         {
             totalWordsCount = cursor.getCount();
-            
+
             int randomPos = new Random().nextInt(totalWordsCount);
             cursor.moveToPosition(randomPos);
-            
+
             id = cursor.getInt(cursor.getColumnIndex(JumblewordsColumns._ID));
-            
+
             // Check for repeats
             if(randomGeneratedIdList.contains(""+id) && randomGeneratedIdList.size() < totalWordsCount) {
                 cursor.close();
@@ -228,11 +228,11 @@ public class GameActivity extends BaseActivity implements View.OnClickListener{
             index = 0;
             validateWord();
         }*/
-       v.setEnabled(false);
-       StringBuilder sb = new StringBuilder("");
-       sb.append(etAnswers.getText().toString());
-       sb.append(((TextView)v).getText().toString());
-       etAnswers.setText(sb.toString());
+        v.setEnabled(false);
+        StringBuilder sb = new StringBuilder("");
+        sb.append(etAnswers.getText().toString());
+        sb.append(((TextView)v).getText().toString());
+        etAnswers.setText(sb.toString());
         //etAnswers.setSingleCharHint(((TextView)v).getText().toString());
         //etAnswers.onTextChanged(((TextView)v).getText().toString(), index, index-1, index+1);
 
@@ -245,22 +245,22 @@ public class GameActivity extends BaseActivity implements View.OnClickListener{
         {
             sb = sb.append(tv_finalAnsArr[i].getText().toString());
         }*/
-       // CorrectwordsSelection selection = new CorrectwordsSelection();
+        // CorrectwordsSelection selection = new CorrectwordsSelection();
         //CorrectwordsCursor cursr = selection.jumbleWordId(id).
-       // Cursor cursor = getContentResolver().query(CorrectwordsColumns.CONTENT_URI, null, CorrectwordsColumns.JUMBLE_WORD_ID +"=? AND "+CorrectwordsColumns.CORRECT_WORD+"=?", new String[]{id+"", sb.toString()}, null);
+        // Cursor cursor = getContentResolver().query(CorrectwordsColumns.CONTENT_URI, null, CorrectwordsColumns.JUMBLE_WORD_ID +"=? AND "+CorrectwordsColumns.CORRECT_WORD+"=?", new String[]{id+"", sb.toString()}, null);
 
         Cursor cursor = getContentResolver().query(CorrectwordsColumns.CONTENT_URI, null, CorrectwordsColumns.JUMBLE_WORD_ID +"=?", new String[]{id+""}, null);
 
         if(cursor != null && cursor.getCount()>0) {
             cursor.moveToFirst();
-             correctWordsStr = cursor.getString(cursor.getColumnIndex(CorrectwordsColumns.CORRECT_WORD));
+            correctWordsStr = cursor.getString(cursor.getColumnIndex(CorrectwordsColumns.CORRECT_WORD));
         }
         if(correctWordsStr.contains(sb.toString().toUpperCase()) || correctWordsStr.contains(sb.toString().toLowerCase()))
         {
-           // totalTime = totalTime + 1000;
+            // totalTime = totalTime + 1000;
             iv_isCorrect.setVisibility(View.VISIBLE);
             iv_isCorrect.setImageTintList(ColorStateList.valueOf(Color.parseColor("#008000")));
-            iv_isCorrect.setImageDrawable(ContextCompat.getDrawable(GameActivity.this, R.drawable.correct));
+            iv_isCorrect.setImageDrawable(ContextCompat.getDrawable(GameActivity3.this, R.drawable.correct));
             score = score + 1;
            /* for (int i = 0; i < tv_finalAnsArr.length; i++) {
                 tv_finalAnsArr[i].setText("");
@@ -274,15 +274,15 @@ public class GameActivity extends BaseActivity implements View.OnClickListener{
         }
         else
         {
-            shakeView(GameActivity.this, answerslayout);
+            shakeView(GameActivity3.this, answerslayout);
             iv_isCorrect.setVisibility(View.VISIBLE);
             iv_isCorrect.setImageTintList(ColorStateList.valueOf(Color.RED));
-            iv_isCorrect.setImageDrawable(ContextCompat.getDrawable(GameActivity.this, R.drawable.incorrect));
+            iv_isCorrect.setImageDrawable(ContextCompat.getDrawable(GameActivity3.this, R.drawable.incorrect));
         }
        /* for (int i = 0; i < tv_finalAnsArr.length; i++) {
             tv_finalAnsArr[i].setText("");
         }*/
-       etAnswers.setText("");
+        etAnswers.setText("");
         getJumledWords();
         tv_currentScore.setText(score +"");
         enableJumbleLetters(true);

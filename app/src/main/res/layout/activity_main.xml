@@ -42,60 +42,77 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
+        android:layout_height="447dp"
         android:layout_centerInParent="true"
+        android:layout_centerHorizontal="true"
         android:gravity="center"
         android:orientation="vertical">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/blue"
-            android:layout_margin="20dp"
-            android:textSize="@dimen/textsize_18sp"
-            android:gravity="center"
             android:layout_below="@id/logo"
             android:layout_centerHorizontal="true"
-            android:text="@string/select_a_level_to_start_game" />
+            android:layout_margin="20dp"
+            android:gravity="center"
+            android:text="@string/select_a_level_to_start_game"
+            android:textColor="@color/blue"
+            android:textSize="@dimen/textsize_18sp" />
 
         <pl.droidsonroids.gif.GifImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
-            android:gravity="center"
             android:layout_margin="20dp"
+            android:gravity="center"
             android:src="@drawable/arrow" />
 
-    <com.stupendous.jumbledwords.utils.VariableGravityButton
-        android:id="@+id/btnLevel1"
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
-        android:paddingLeft="15dp"
-        android:paddingRight="15dp"
-        android:paddingTop="10dp"
-        android:paddingBottom="10dp"
-        android:textColor="@color/white"
-        android:text="@string/level1"
-        android:layout_below="@id/tv_totalScore"
-        android:layout_centerHorizontal="true"
-        android:background="@drawable/btn_selector"/>
+        <com.stupendous.jumbledwords.utils.VariableGravityButton
+            android:id="@+id/btnLevel1"
+            android:layout_width="181dp"
+            android:layout_height="67dp"
+            android:layout_below="@id/tv_totalScore"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/easy_cloud"
+            android:paddingLeft="15dp"
+            android:paddingTop="10dp"
+            android:paddingRight="15dp"
+            android:paddingBottom="10dp"
+            android:text="@string/level1"
+            android:textColor="@color/white" />
 
         <com.stupendous.jumbledwords.utils.VariableGravityButton
             android:id="@+id/btnLevel2"
-            android:layout_width="200dp"
-            android:layout_height="wrap_content"
-            android:paddingLeft="15dp"
-            android:paddingRight="15dp"
-            android:paddingTop="10dp"
-            android:paddingBottom="10dp"
-            android:textColor="@color/white"
-            android:text="@string/level2"
-            android:layout_marginTop="20dp"
+            android:layout_width="185dp"
+            android:layout_height="62dp"
             android:layout_below="@id/tv_totalScore"
             android:layout_centerHorizontal="true"
-            android:background="@drawable/btn_selector"/>
+            android:layout_marginTop="20dp"
+            android:background="@drawable/cloud"
+            android:paddingLeft="15dp"
+            android:paddingTop="10dp"
+            android:paddingRight="15dp"
+            android:paddingBottom="10dp"
+            android:text="@string/level2"
+            android:textColor="@color/white" />
+
+        <com.stupendous.jumbledwords.utils.VariableGravityButton
+            android:id="@+id/btnLevel3"
+            android:layout_width="200dp"
+            android:layout_height="69dp"
+            android:layout_below="@id/tv_totalScore"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/cloud"
+            android:paddingLeft="15dp"
+            android:paddingTop="10dp"
+            android:paddingRight="15dp"
+            android:paddingBottom="10dp"
+            android:text="@string/level3"
+            android:textColor="@color/white" />
+
     </LinearLayout>
+
     <RelativeLayout
         android:layout_alignParentBottom="true"
         android:layout_width="match_parent"

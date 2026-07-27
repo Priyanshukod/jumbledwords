@@ -2,7 +2,9 @@ package com.stupendous.jumbledwords;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.ColorStateList;
 import android.database.Cursor;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -14,6 +16,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.core.content.ContextCompat;
 
 import com.stupendous.jumbledwords.provider.correctwords.CorrectwordsColumns;
@@ -35,9 +38,9 @@ public class GameActivity2 extends BaseActivity implements View.OnClickListener{
     private int score=0;
     private TextView tv_currentScore;
     String correctWordsStr = "";
-    int totalWordsCount = 50;
+    int totalWordsCount = 428;
     ImageView iv_isCorrect;
-    volatile long totalTime = 60000;
+    volatile long totalTime = 180000;
     Handler handler;
     Runnable runnableCode;
     ArrayList<String> randomGeneratedIdList = new ArrayList<>();
@@ -81,11 +84,11 @@ public class GameActivity2 extends BaseActivity implements View.OnClickListener{
             }
         });
        // tv_timer.startAnimation(anim);
-        tv_bestScore.setText(SharedPrefs.getInstance().getIntPreference("score", 0) +"");
+        tv_bestScore.setText(SharedPrefs.getInstance().getIntPreference(Utility.LEVEL_2_BEST_SCORE, 0) +"");
         findViewById(R.id.iv_quitGame).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showInterstitial();
+                //showInterstitial();
                 GameActivity2.this.finish();
             }
         });
@@ -126,8 +129,15 @@ public class GameActivity2 extends BaseActivity implements View.OnClickListener{
                 {
                     iv_isCorrect.setVisibility(View.GONE);
                     enableJumbleLetters(false);
-                    if(score > (SharedPrefs.getInstance().getIntPreference("score", 0)))
+                    int oldScore = SharedPrefs.getInstance().getIntPreference("score", 0);
+                    if(score > oldScore) {
                         SharedPrefs.getInstance().writeIntPreference("score", score);
+                        new AlertDialog.Builder(GameActivity2.this)
+                                .setTitle(R.string.new_high_score_title)
+                                .setMessage(getString(R.string.new_high_score_message, score))
+                                .setPositiveButton(android.R.string.ok, null)
+                                .show();
+                    }
                     tv_timer.setText("Times Up!");
                     handler.removeCallbacks(runnableCode);
                 }
@@ -166,41 +176,39 @@ public class GameActivity2 extends BaseActivity implements View.OnClickListener{
     }
 
     private void getJumledWords() {
+        Cursor cursor = getContentResolver().query(JumblewordsColumns.CONTENT_URI, null, JumblewordsColumns.LEVEL + "=?", new String[]{"2"}, null);
 
-        getRandomId();
-
-        //JumblewordsCursor cursor = new JumblewordsSelection().id(id).level(1).query(this);
-        Cursor cursor = getContentResolver().query(JumblewordsColumns.CONTENT_URI, null, JumblewordsColumns._ID +"=? AND " + JumblewordsColumns.LEVEL + "=?", new String[]{id+"", "2"}, null);
-
-        if(cursor != null && cursor.getCount() > 0 && cursor.moveToFirst())
+        if(cursor != null && cursor.getCount() > 0)
         {
-            Log.e(TAG,"count:"+cursor.getCount());
+            totalWordsCount = cursor.getCount();
+            
+            int randomPos = new Random().nextInt(totalWordsCount);
+            cursor.moveToPosition(randomPos);
+            
+            id = cursor.getInt(cursor.getColumnIndex(JumblewordsColumns._ID));
+            
+            // Check for repeats
+            if(randomGeneratedIdList.contains(""+id) && randomGeneratedIdList.size() < totalWordsCount) {
+                cursor.close();
+                getJumledWords();
+                return;
+            }
+            randomGeneratedIdList.add(id+"");
 
             String word = cursor.getString(cursor.getColumnIndex(JumblewordsColumns.JUMBLE_WORD));
             char[] ch = word.toUpperCase().toCharArray();
-            tv_firstLetter.setText(ch[0]+"");
-            tv_secondLetter.setText(ch[1]+"");
-            tv_thirdletter.setText(ch[2]+"");
-            tv_fourthLetter.setText(ch[3]+"");
-            tv_fifthLetter.setText(ch[4]+"");
+            if (ch.length >= 5) {
+                tv_firstLetter.setText(ch[0] + "");
+                tv_secondLetter.setText(ch[1] + "");
+                tv_thirdletter.setText(ch[2] + "");
+                tv_fourthLetter.setText(ch[3] + "");
+                tv_fifthLetter.setText(ch[4] + "");
+            }
+            cursor.close();
         }
-        else
+        else {
+            if (cursor != null) cursor.close();
             Toast.makeText(getApplicationContext(), getString(R.string.some_error_occured), Toast.LENGTH_LONG).show();
-    }
-
-    private void getRandomId() {
-        Random r = new Random();
-        id = r.nextInt(totalWordsCount) + 51;
-        if(randomGeneratedIdList.contains(""+id))
-        {
-            if(randomGeneratedIdList.size() == totalWordsCount)
-                return;
-            getRandomId();
-        }
-        else
-        {
-            randomGeneratedIdList.add(id+"");
-            return;
         }
     }
 
@@ -231,18 +239,22 @@ public class GameActivity2 extends BaseActivity implements View.OnClickListener{
             cursor.moveToFirst();
              correctWordsStr = cursor.getString(cursor.getColumnIndex(CorrectwordsColumns.CORRECT_WORD));
         }
+
         if(correctWordsStr.contains(sb.toString().toUpperCase()) || correctWordsStr.contains(sb.toString().toLowerCase()))
         {
            // totalTime = totalTime + 1000;
             iv_isCorrect.setVisibility(View.VISIBLE);
+            iv_isCorrect.setImageTintList(ColorStateList.valueOf(Color.parseColor("#008000")));
             iv_isCorrect.setImageDrawable(ContextCompat.getDrawable(GameActivity2.this, R.drawable.correct));
             score = score + 1;
 
         }
+
         else
         {
             shakeView(GameActivity2.this, answerslayout);
             iv_isCorrect.setVisibility(View.VISIBLE);
+            iv_isCorrect.setImageTintList(ColorStateList.valueOf(Color.RED));
             iv_isCorrect.setImageDrawable(ContextCompat.getDrawable(GameActivity2.this, R.drawable.incorrect));
         }
 
