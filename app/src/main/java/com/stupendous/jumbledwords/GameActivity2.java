@@ -1,6 +1,9 @@
 package com.stupendous.jumbledwords;
 
+import static com.stupendous.jumbledwords.Utility.LEVEL_2_BEST_SCORE;
+
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.database.Cursor;
@@ -84,7 +87,7 @@ public class GameActivity2 extends BaseActivity implements View.OnClickListener{
             }
         });
        // tv_timer.startAnimation(anim);
-        tv_bestScore.setText(SharedPrefs.getInstance().getIntPreference(Utility.LEVEL_2_BEST_SCORE, 0) +"");
+        tv_bestScore.setText(SharedPrefs.getInstance().getIntPreference(LEVEL_2_BEST_SCORE, 0) +"");
         findViewById(R.id.iv_quitGame).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -115,6 +118,7 @@ public class GameActivity2 extends BaseActivity implements View.OnClickListener{
         // Create the Handler object (on the main thread by default)
          handler = new Handler();
 // Define the code block to be executed
+
         runnableCode = new Runnable() {
             @Override
             public void run() {
@@ -129,13 +133,18 @@ public class GameActivity2 extends BaseActivity implements View.OnClickListener{
                 {
                     iv_isCorrect.setVisibility(View.GONE);
                     enableJumbleLetters(false);
-                    int oldScore = SharedPrefs.getInstance().getIntPreference("score", 0);
+                    int oldScore = SharedPrefs.getInstance().getIntPreference(LEVEL_2_BEST_SCORE, 0);
                     if(score > oldScore) {
-                        SharedPrefs.getInstance().writeIntPreference("score", score);
+                        SharedPrefs.getInstance().writeIntPreference(LEVEL_2_BEST_SCORE, score);
                         new AlertDialog.Builder(GameActivity2.this)
                                 .setTitle(R.string.new_high_score_title)
                                 .setMessage(getString(R.string.new_high_score_message, score))
-                                .setPositiveButton(android.R.string.ok, null)
+                                .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialogInterface, int i) {
+                                        finish();
+                                    }
+                                })
                                 .show();
                     }
                     tv_timer.setText("Times Up!");

@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -15,37 +17,41 @@
         android:gravity="center"
         android:layout_margin="20dp"
         android:src="@drawable/jumble_word" />
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="@color/blue"
-        android:layout_margin="20dp"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        android:visibility="gone"
-        android:layout_centerHorizontal="true"
-        android:gravity="center"
-        android:text="JUMBLED\nWORDS" />
+
 
     <TextView
-        android:id="@+id/tv_totalScore"
+        android:id="@+id/tv_level1Score"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@color/blue"
         android:textStyle="bold"
-        android:layout_margin="20dp"
-        android:textSize="@dimen/textsize_22sp"
+        android:layout_marginTop="20dp"
+        android:textSize="18sp"
         android:gravity="center"
         android:layout_below="@id/logo"
         android:layout_centerHorizontal="true"
-        android:text="@string/best_score" />
+        android:text="@string/level1_score" />
+
+    <TextView
+        android:id="@+id/tv_level2Score"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/blue"
+        android:textStyle="bold"
+        android:layout_marginTop="10dp"
+        android:textSize="18sp"
+        android:gravity="center"
+        android:layout_below="@id/tv_level1Score"
+        android:layout_centerHorizontal="true"
+        android:text="@string/level2_score" />
 
     <LinearLayout
+        android:id="@+id/llSelectLevel"
+        android:layout_below="@id/tv_level2Score"
         android:layout_width="match_parent"
-        android:layout_height="447dp"
-        android:layout_centerInParent="true"
-        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="20dp"
         android:gravity="center"
+        android:layout_height="wrap_content"
         android:orientation="vertical">
 
         <TextView
@@ -57,61 +63,96 @@
             android:gravity="center"
             android:text="@string/select_a_level_to_start_game"
             android:textColor="@color/blue"
-            android:textSize="@dimen/textsize_18sp" />
+            android:textSize="16sp" />
 
         <pl.droidsonroids.gif.GifImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="61dp"
+            android:layout_height="59dp"
             android:layout_centerHorizontal="true"
+            android:layout_gravity="center"
             android:layout_margin="20dp"
-            android:gravity="center"
             android:src="@drawable/arrow" />
-
-        <com.stupendous.jumbledwords.utils.VariableGravityButton
-            android:id="@+id/btnLevel1"
-            android:layout_width="181dp"
-            android:layout_height="67dp"
-            android:layout_below="@id/tv_totalScore"
-            android:layout_centerHorizontal="true"
-            android:background="@drawable/easy_cloud"
-            android:paddingLeft="15dp"
-            android:paddingTop="10dp"
-            android:paddingRight="15dp"
-            android:paddingBottom="10dp"
-            android:text="@string/level1"
-            android:textColor="@color/white" />
-
-        <com.stupendous.jumbledwords.utils.VariableGravityButton
-            android:id="@+id/btnLevel2"
-            android:layout_width="185dp"
-            android:layout_height="62dp"
-            android:layout_below="@id/tv_totalScore"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="20dp"
-            android:background="@drawable/cloud"
-            android:paddingLeft="15dp"
-            android:paddingTop="10dp"
-            android:paddingRight="15dp"
-            android:paddingBottom="10dp"
-            android:text="@string/level2"
-            android:textColor="@color/white" />
-
-        <com.stupendous.jumbledwords.utils.VariableGravityButton
-            android:id="@+id/btnLevel3"
-            android:layout_width="200dp"
-            android:layout_height="69dp"
-            android:layout_below="@id/tv_totalScore"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="20dp"
-            android:background="@drawable/cloud"
-            android:paddingLeft="15dp"
-            android:paddingTop="10dp"
-            android:paddingRight="15dp"
-            android:paddingBottom="10dp"
-            android:text="@string/level3"
-            android:textColor="@color/white" />
-
     </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/llEasyLevel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:layout_below="@id/llSelectLevel"
+            android:orientation="horizontal">
+
+            <com.stupendous.jumbledwords.utils.VariableGravityButton
+                android:id="@+id/btnLevel1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/btn_selector"
+                android:padding="15dp"
+                android:layout_marginLeft="50dp"
+                android:layout_marginRight="50dp"
+                android:layout_marginTop="15dp"
+                android:text="@string/level1"
+                android:gravity="center"
+                android:textStyle="bold"
+                android:textColor="@color/white" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/llMediumLevel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:layout_below="@id/llEasyLevel"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal">
+
+            <com.stupendous.jumbledwords.utils.VariableGravityButton
+                android:id="@+id/btnLevel2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/btn_selector"
+                android:padding="15dp"
+                android:layout_marginLeft="50dp"
+                android:layout_marginRight="50dp"
+                android:layout_marginTop="15dp"
+                android:gravity="center"
+                android:text="@string/level2"
+                android:textStyle="bold"
+                android:textColor="@color/white" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:visibility="gone"
+            android:layout_width="wrap_content"
+            android:layout_height="129dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <com.stupendous.jumbledwords.utils.VariableGravityButton
+                android:id="@+id/btnLevel3"
+                android:layout_width="208dp"
+                android:layout_height="89dp"
+                android:layout_below="@id/tv_totalScore"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/cloud2"
+                android:paddingLeft="15dp"
+                android:paddingTop="10dp"
+                android:paddingRight="15dp"
+                android:paddingBottom="10dp"
+                android:text="@string/level3"
+                android:textColor="@color/blue" />
+
+            <pl.droidsonroids.gif.GifImageView
+                android:id="@+id/gif_image_view"
+                android:layout_width="55dp"
+                android:layout_height="61dp"
+                android:src="@drawable/light" />
+
+        </LinearLayout>
+
 
     <RelativeLayout
         android:layout_alignParentBottom="true"
@@ -172,4 +213,5 @@
         ads:adUnitId="@string/ad_banner">
 
     </com.google.android.gms.ads.AdView>
+
 </RelativeLayout>

@@ -1,6 +1,7 @@
 package com.stupendous.jumbledwords;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.database.Cursor;
@@ -149,7 +150,12 @@ public class GameActivity3 extends BaseActivity implements View.OnClickListener{
                         new AlertDialog.Builder(GameActivity3.this)
                                 .setTitle(R.string.new_high_score_title)
                                 .setMessage(getString(R.string.new_high_score_message, score))
-                                .setPositiveButton(android.R.string.ok, null)
+                                .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialogInterface, int i) {
+                                        finish();
+                                    }
+                                })
                                 .show();
                     }
 
